@@ -7,6 +7,7 @@ function Home(){
     const [search,setSearch]=useState("");
 
     const handleSearch=()=>{
+        console.log(" i am here");
 
 
     }
