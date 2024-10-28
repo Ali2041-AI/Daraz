@@ -22,15 +22,15 @@ function Home(){
         <>
         {/* top search area fixex */}
          <div className="search-area  z-50 bg-white w-full fixed top-0  font-notoSans pt-4">
-            <div className="w-10/12 mx-auto px-[2px] py-[2px] max-w-[600px] border rounded-full border-[#FE4960] flex items-center justify-center overflow-hidden">
+            <div className="w-[91%] mx-auto px-[2px] py-[2px] max-w-[600px] border rounded-full border-[#FE4960] flex items-center justify-center overflow-hidden">
                <img src={images.searchIcon} className="w-6 mr-1" alt="" />
                <input type="text" className="flex-1 outline-none border-none text-sm" placeholder="search.." value={search} onChange={e=>setSearch(e.target.value)} />
                <button onClick={handleSearch} className="bg-[#f85607] px-2 py-1 text-sm  text-white rounded-full">Search</button>
             </div>
          </div>
          {/* Image Slider  */}
-         <div className="min-h-screen w-full mt-[100px] rounded-lg  overflow-hidden ">
-            <div className="w-[81%] mx-auto max-w-[600px] rounded-lg overflow-hidden">
+         <div className="min-h-screen w-full mt-[80px] rounded-lg  overflow-hidden ">
+            <div className="w-[91%] mx-auto max-w-[600px] rounded-lg overflow-hidden">
                 <Customslider>
                     {imagesSlider.map((image,index)=>{
                         return <img src={image.img} alt={image.imgAlt} key={index} />
