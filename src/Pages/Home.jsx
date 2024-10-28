@@ -29,7 +29,7 @@ function Home(){
             </div>
          </div>
          {/* Image Slider  */}
-         <div className="min-h-screen w-full mt-[65px] rounded-lg  overflow-hidden ">
+         <div className="min-h-screen w-full pt-[65px] bg-[#F0F1F6] rounded-lg  overflow-hidden ">
             <div className="w-[91%] mx-auto max-w-[600px] rounded-lg overflow-hidden">
                 <Customslider>
                     {imagesSlider.map((image,index)=>{
