@@ -4,6 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
  const initialState={
     loginStatus:false,
     userData:null,
+    isSeller:false,
+    sellerData:null,
  }
 
 
@@ -19,10 +21,17 @@ const darazSlice=createSlice({
         logOutUser:(state)=>{
             state.loginStatus=false;
             state.userData=null;
-        }
-
+        },
+        LogInSeller:(state,action)=>{
+            state.isSeller=true;
+            state.sellerData=action.payload;
+        },
+        LogOutSeller:(state)=>{
+            state.isSeller=false;
+            state.sellerData=null;
+        },
     }
 })
 
-export const {logInUser,logOutUser}=darazSlice.actions;
+export const {logInUser,logOutUser,LogInSeller,LogOutSeller}=darazSlice.actions;
 export default darazSlice.reducer;
