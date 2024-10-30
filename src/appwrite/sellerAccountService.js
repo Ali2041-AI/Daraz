@@ -35,7 +35,7 @@ class Seller{
               userID
             }
         )
-        console.log(sellerID);
+        return data;
         } 
 
             catch (error) {
@@ -49,9 +49,6 @@ class Seller{
     }
 
     async getSellerData(userID){
-
-        console.log(`User Id is: ${userID} `)
-
         try {
             const sellerData=await this.databases.listDocuments(
                 env.APPWRITE_DB,
@@ -64,6 +61,25 @@ class Seller{
             
         } catch (error) {
             throw("GET SELLER DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+    async getStoreData(sellerData){
+
+        const sellerID=sellerData.$id;
+        console.log(sellerData)
+        try {
+            const storeData=await this.databases.listDocuments(
+                env.APPWRITE_DB,
+                env.APPWRITE_STORE_TABLE,
+                [
+                        Query.equal('sellerID',sellerID)
+                ]
+            )
+           return storeData;
+            
+        } catch (error) {
+            throw("GET STORE DATA :: APPWRITE ::ERROR ",error.message)
         }
 
     }
@@ -99,7 +115,7 @@ class Seller{
                 }
 
             )
-            console.log(res);
+            return res;
             
         } catch (error) {
             throw("CREATING STORE :: APPWRITE ::ERROR ",error.message)
@@ -108,6 +124,22 @@ class Seller{
         }
 
     }
+
+    getImagePreview(featuredImageID){
+        try {
+            const Image=this.storage.getFilePreview(
+                env.APPWRITE_STORAGEID,
+                featuredImageID
+            )
+            return Image;
+
+            
+        } catch (error) {
+            throw error;
+        }
+
+    }
+
 
 
 

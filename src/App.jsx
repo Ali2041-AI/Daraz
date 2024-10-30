@@ -2,10 +2,11 @@ import { useEffect } from 'react'
 import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 import authService from './appwrite/authService'
-import {logInUser,logOutUser,LogInSeller,LogOutSeller} from './store/darazSlice'
+import {logInUser,logOutUser,LogInSeller,LogOutSeller,setStoreData} from './store/darazSlice'
 import Home from './Pages/Home'
 import Store from './Pages/Store'
 import sellerAccountService from './appwrite/sellerAccountService'
+
 
 function App() {
 
@@ -29,6 +30,21 @@ function App() {
          if(res.total===1){
           const sellerData=res.documents[0];
           dispatch(LogInSeller({...sellerData}))
+          sellerAccountService.getStoreData(sellerData)
+          .then((data)=>{
+            if(data.total===1){
+              const storeData=data.documents[0];
+              dispatch(setStoreData({...storeData}))
+            }
+            else{
+              return;
+            }
+        
+          })
+          .catch((error)=>{
+            console.log(error);
+          })
+
 
          }
 
