@@ -3,6 +3,16 @@ import darazLogo from '../assets/darazLogo.png'
 import catog from '../assets/catog.png'
 import cart from '../assets/cart.png'
 import account from '../assets/account.png'
+import backIcon from '../assets/back.svg'  
+import ChatWithUs from '../assets/ChatWIthUs.png'
+import Feedback from '../assets/Feedback.png'
+import Help from '../assets/Help.png'
+import FollowedStore from '../assets/FollowdStore.png'
+import MyOrders from '../assets/MyOrders.png'
+import Policies from '../assets/Policies.png'
+
+
+
 
 
 
@@ -11,7 +21,14 @@ const images={
     darazLogo,
     catog,
     cart,
-    account
+    account,
+    backIcon,
+    ChatWithUs,
+    Feedback,
+    Help,
+    FollowedStore,
+    MyOrders,
+    Policies
 }
 
 export default images;

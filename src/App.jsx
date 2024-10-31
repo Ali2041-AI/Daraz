@@ -6,6 +6,7 @@ import {logInUser,logOutUser,LogInSeller,LogOutSeller,setStoreData} from './stor
 import Home from './Pages/Home'
 import Store from './Pages/Store'
 import sellerAccountService from './appwrite/sellerAccountService'
+import Account from './Pages/Account'
 
 
 function App() {
@@ -28,7 +29,6 @@ function App() {
         .then((res)=>{
          if(res.total===1){
           const sellerData=res.documents[0];
-          console.log(sellerData);
           dispatch(LogInSeller({...sellerData}))
           sellerAccountService.getStoreData(sellerData)
           .then((data)=>{
@@ -69,6 +69,7 @@ function App() {
     <>
     <Home />
     <Store />
+    <Account />
 
     
     </>
