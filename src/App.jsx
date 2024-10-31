@@ -6,7 +6,8 @@ import {logInUser,logOutUser,LogInSeller,LogOutSeller,setStoreData} from './stor
 import Home from './Pages/Home'
 import Store from './Pages/Store'
 import sellerAccountService from './appwrite/sellerAccountService'
-import Account from './Pages/Account'
+import Account from './Pages/AccountPage'
+import { Outlet } from 'react-router'
 
 
 function App() {
@@ -67,9 +68,7 @@ function App() {
 
   return (
     <>
-    <Home />
-    <Store />
-    <Account />
+   <Outlet />
 
     
     </>

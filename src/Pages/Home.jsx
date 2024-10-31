@@ -2,11 +2,13 @@ import { useState } from "react";
 import images from "../assets/Images";
 import Customslider from "../components/custom.slider";
 import imagesSlider from "../assets/ImageSlider";
+import { useNavigate } from "react-router";
 
 function Home(){
 
 
     const [search,setSearch]=useState("");
+    const navigate=useNavigate();
 
     const handleSearch=()=>{
         console.log(" i am here");
@@ -59,9 +61,9 @@ function Home(){
                 <img src={images.cart} className="w-6" alt="" />
                 <p className="text-[10px] opacity-70">Cart</p>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center " onClick={()=>navigate('/account')}>
                 <img src={images.account} className="w-6" alt="" />
-                <p className="text-[10px] opacity-70">Account</p>
+                <p className="text-[10px] opacity-70">Account </p>
             </div>
 
             </div>

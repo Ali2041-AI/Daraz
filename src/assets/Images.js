@@ -10,6 +10,7 @@ import Help from '../assets/Help.png'
 import FollowedStore from '../assets/FollowdStore.png'
 import MyOrders from '../assets/MyOrders.png'
 import Policies from '../assets/Policies.png'
+import sellerIcon from '../assets/sellerIcon.png'
 
 
 
@@ -28,7 +29,8 @@ const images={
     Help,
     FollowedStore,
     MyOrders,
-    Policies
+    Policies,
+    sellerIcon
 }
 
 export default images;
