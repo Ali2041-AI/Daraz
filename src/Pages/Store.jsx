@@ -32,8 +32,6 @@ function Store(){
     const [category,setCategory]=useState([]);
     const [description,setDescription]=useState("");
     const [price,setPrice]=useState("");
-    console.log("Below is product Image")
-    console.log(productImage);
 
 
     const dispatch=useDispatch();
@@ -42,9 +40,9 @@ function Store(){
 
 
 
-
     let storeID=useSelector((state)=>state.userData.storeData);
     storeID=storeID?.$id;
+    console.log(storeID);
     const sellerID=useSelector((state)=>state.userData.sellerData)?.$id;
     const user=useSelector((state)=>state.userData.userData);
     const userID=user?.$id;
@@ -121,9 +119,16 @@ function Store(){
     }
 
     const addImage=()=>{
-        if(productImage.length>0){
-            setProductImages((prev)=>[...prev,productImage]);
-        }
+        
+            sellerAccountService.addImage(productImage)
+            .then((fileID)=>{
+                setProductImages((prev)=>[...prev,fileID])
+                console.log(productImages);
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+        
         setProductImage([]);
 
     }
@@ -133,6 +138,13 @@ function Store(){
             setCategory((prev)=>[...prev,singleCategory]);
         }
         setSingleCategory("");
+    }
+
+    const addProduct=(e)=>{
+        e.preventDefault();
+
+        sellerAccountService.createNewProduct({discountedPrice,productTitle,sold,stock,colors,sizes,category,storeID,description,price,productImages})
+
     }
 
 
@@ -164,7 +176,7 @@ function Store(){
 
             </form>
 
-            <form className="my-8">
+            <form onSubmit={addProduct} className="my-8">
               <h2>Add a Product in the Database</h2>
               <input type="text" placeholder="product title...." value={productTitle} onChange={e=>setProductTitle(e.target.value)} />
               <input type="number" placeholder="Discounted Price..." value={discountedPrice} onChange={e=>setDiscountedPrice(e.target.value)}/>
@@ -191,11 +203,16 @@ function Store(){
             </div> 
               <button type="button" onClick={addSize}>Add Size</button>
 
-             <div className="my-6">
-              <input type="file" accept="image/png , image/jpg , image/jpeg, image/gif"  onChange={e=>setProductImage(e.target.files[0])} />
-              <button type="button" onClick={addImage} className="bg-red-600 rounded-md px-3 py-1 hover:bg-red-500 text-white">Add Image</button>
-              <img src={productImage} alt="" />
-              <p>{JSON.stringify(productImage)}</p>
+             <div className="my-6 ">
+              <div className="ImageDisplayingArea flex">
+                {Array.isArray(productImages) && productImages.map((imageID)=>(
+                 
+                   <img key={imageID} className="w-12" src={sellerAccountService.getImagePreview(imageID)} alt="" />  
+                ))}
+              </div>
+              <input type="file" accept="image/png , image/jpg ,image/webp , image/jpeg, image/gif"  onChange={e=>setProductImage(e.target.files[0])} />
+              <button type="button" onClick={addImage} className="bg-red-600 rounded-full text-3xl px-4 py-2 hover:bg-red-500 text-white">+</button>
+               
              </div>
 
              <div>
@@ -211,7 +228,8 @@ function Store(){
 
               <textarea placeholder="Description..." value={description} onChange={e=>setDescription(e.target.value)} name="" id=""></textarea>
               <input type="text" placeholder="price..." value={price} onChange={e=>setPrice(e.target.value)} />
-
+              
+              <button type="submit" className="bg-red-600 text-white rounded-md px-2 py-1">Add Product</button>
             </form>
         </div>
 

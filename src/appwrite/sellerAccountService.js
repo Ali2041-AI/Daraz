@@ -67,7 +67,7 @@ class Seller{
     async getStoreData(sellerData){
 
         const sellerID=sellerData.$id;
-        console.log(sellerData)
+        console.log(sellerID)
         try {
             const storeData=await this.databases.listDocuments(
                 env.APPWRITE_DB,
@@ -137,6 +137,51 @@ class Seller{
         } catch (error) {
             throw error;
         }
+
+    }
+
+    async createNewProduct({productTitle,discountedPrice,sold,stock,colors,
+        sizes,category,storeID,price,description,
+        productImages
+    }){
+
+
+       discountedPrice=parseInt(discountedPrice);
+       sold=parseInt(sold)
+       price=parseInt(price);
+       stock=parseInt(stock);
+
+        try {
+        const productID=ID.unique();
+           const data=await  this.databases.createDocument(
+            env.APPWRITE_DB,
+            env.APPWRITE_PRODUCT_TABLE,
+            productID,
+            {
+              productID,
+              productTitle,
+              discountedPrice,
+              sold,
+              stock,
+              colors,
+              sizes,
+              category,
+              storeID,
+              description,
+              price,
+              productImages
+            }
+        )
+        return data;
+        } 
+
+            catch (error) {
+                throw("SELLER ACCOUNT CREATION :: APPWRITE ::ERROR ",error.message)
+            
+            }
+            
+
+
 
     }
 

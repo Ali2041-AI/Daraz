@@ -14,7 +14,6 @@ function App() {
 
   const dispatch=useDispatch();
   const sellerData=useSelector((state)=>state.userData.sellerData);
-  console.log(sellerData);
 
 
   useEffect(()=>{
@@ -29,11 +28,13 @@ function App() {
         .then((res)=>{
          if(res.total===1){
           const sellerData=res.documents[0];
+          console.log(sellerData);
           dispatch(LogInSeller({...sellerData}))
           sellerAccountService.getStoreData(sellerData)
           .then((data)=>{
             if(data.total===1){
               const storeData=data.documents[0];
+              console.log(storeData)
               dispatch(setStoreData({...storeData}))
             }
             else{
