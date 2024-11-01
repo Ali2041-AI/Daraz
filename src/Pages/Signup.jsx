@@ -48,10 +48,10 @@ function Signup(){
                 })}   placeholder="Please enter your Email" />
                 <input type="password" className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Minimum 6 characters" />
                 <input type="password" className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Confirm Password" />
-                <button type="submit" className="text-white bg-[#F85606] w-full rounded-md py-3 font-semibold mx-auto">LOGIN</button>
+                <button type="submit" className="text-white bg-[#F85606] w-full rounded-md py-3 font-semibold mx-auto">SIGNUP</button>
             </form>
-
-
+            <p className="text-sm opacity-60 mt-5 font-notoSans mb-2">Already have an account?</p>
+            <span className="text-[#1E71FF] font-semibold text-sm">Log in now</span>
 
           </div>
 
