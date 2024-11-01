@@ -73,8 +73,8 @@ function Signup(){
 
                 <input className="border border-gray-400 px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full" type="text" {...register('email',{
                     minLength:{
-                        value:6,
-                        message:"At least 6 Characters!"
+                        value:8,
+                        message:"At least 8 Characters!"
                     },
                     required:{
                         value:true,
