@@ -11,6 +11,11 @@ import FollowedStore from '../assets/FollowdStore.png'
 import MyOrders from '../assets/MyOrders.png'
 import Policies from '../assets/Policies.png'
 import sellerIcon from '../assets/sellerIcon.png'
+import singleBack from '../assets/singleBack.png'
+
+
+
+
 
 
 
@@ -30,7 +35,8 @@ const images={
     FollowedStore,
     MyOrders,
     Policies,
-    sellerIcon
+    sellerIcon,
+    singleBack
 }
 
 export default images;
