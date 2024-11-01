@@ -144,8 +144,6 @@ class Seller{
         sizes,category,storeID,price,description,
         productImages
     }){
-
-
        discountedPrice=parseInt(discountedPrice);
        sold=parseInt(sold)
        price=parseInt(price);

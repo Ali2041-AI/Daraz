@@ -1,17 +1,40 @@
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-
+import authService from "../appwrite/authService";
 import images from "../assets/Images";
+import { useDispatch } from "react-redux";
+import {logInUser,logOutUser} from '../store/darazSlice'
 function Signup(){
 
     const navigate=useNavigate();
     const  {register,handleSubmit,getValues,reset,formState:{errors,isSubmitting}}=useForm()
+    const dispatch=useDispatch();
 
 
 
-   const onSubmit=()=>{
+   const onSubmit=async (data)=>{
+    //Sign Up the User
+    authService.SignUp({
+        name:data.name,
+        email:data.email,
+        pass:data.password
+    })
+    .then(()=>{
+        authService.loginUser({email:data.email, pass:data.password})
+        .then(()=>{
+            authService.getLogInUser()
+            .then((userData)=>{
+                dispatch(logInUser({...userData}));
+                navigate('/account');
+            })
+        })
+    
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
 
-
+    reset();
    }
 
 
@@ -99,10 +122,10 @@ function Signup(){
              )}
 
 
-                <button type="submit" disabled={isSubmitting} className="text-white bg-[#F85606] disabled:bg-gray-700 w-full rounded-md py-3 font-semibold mx-auto">SIGNUP</button>
+                <button type="submit" disabled={isSubmitting} className="text-white bg-[#F85606] disabled:cursor-not-allowed disabled:bg-gray-700 w-full rounded-md py-3 font-semibold mx-auto">SIGNUP</button>
             </form>
             <p className="text-sm opacity-60 mt-5 font-notoSans mb-2">Already have an account?</p>
-            <span className="text-[#1E71FF] font-semibold text-sm">Log in now</span>
+            <span onClick={()=>navigate('/account/loginSignup/login')} className="text-[#1E71FF] font-semibold text-sm">Log in now</span>
 
           </div>
 

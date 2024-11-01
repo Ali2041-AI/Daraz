@@ -10,6 +10,7 @@ import Account from './Pages/AccountPage.jsx'
 import Store from './Pages/Store.jsx'
 import LoginSignupPage from './Pages/LoginSignupPage.jsx'
 import Signup from './Pages/Signup.jsx'
+import Login from './Pages/Login.jsx'
 
 
 const route=createBrowserRouter([
@@ -32,6 +33,10 @@ const route=createBrowserRouter([
               path:'signup',
               element:<Signup />
 
+            },
+            {
+              path:'login',
+              element:<Login />
             }
           ]
         }

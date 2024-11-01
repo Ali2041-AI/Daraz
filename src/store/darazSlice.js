@@ -18,6 +18,7 @@ const darazSlice=createSlice({
         logInUser:(state,action)=>{
             state.loginStatus=true;
             state.userData=action.payload;
+            console.log(state.userData);
         },
         logOutUser:(state)=>{
             state.loginStatus=false;
@@ -26,6 +27,7 @@ const darazSlice=createSlice({
         LogInSeller:(state,action)=>{
             state.isSeller=true;
             state.sellerData=action.payload;
+
         },
         LogOutSeller:(state)=>{
             state.isSeller=false;

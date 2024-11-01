@@ -28,7 +28,6 @@ class Auth{
 
    async loginUser({email,pass}){
       const user= await this.account.createEmailPasswordSession(email,pass);
-      return user;
 
     try {
         
@@ -53,7 +52,6 @@ class Auth{
    async logOutUser(){
     try {
      const res=await this.account.deleteSession('current');
-     return res
     } catch (error) {
         throw("logOutUser :: APPWRITE :: ERROR "+ error.message)
         

@@ -12,6 +12,7 @@ import MyOrders from '../assets/MyOrders.png'
 import Policies from '../assets/Policies.png'
 import sellerIcon from '../assets/sellerIcon.png'
 import singleBack from '../assets/singleBack.png'
+import logout from '../assets/logout.jpeg'
 
 
 
@@ -36,7 +37,8 @@ const images={
     MyOrders,
     Policies,
     sellerIcon,
-    singleBack
+    singleBack,
+    logout
 }
 
 export default images;
