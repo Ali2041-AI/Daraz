@@ -45,7 +45,7 @@ function Signup(){
               })} className={`border border-gray-400    px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full`} />
             
              {errors.name && (
-                <p className="text-red-500">{errors.name.message}</p>
+                <p className="text-red-500 text-[14px]">{errors.name.message}</p>
              )}
 
                 <input className="border border-gray-400 px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full" type="text" {...register('email',{
@@ -60,7 +60,7 @@ function Signup(){
 
                 })}   placeholder="Please enter your Email" />
                 {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
+                <p className="text-red-500 text-[14px]">{errors.email.message}</p>
              )}
 
 
@@ -79,7 +79,7 @@ function Signup(){
                 })}
                  className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Minimum 6 characters" />
                 {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
+                <p className="text-red-500 text-[14px]">{errors.password.message}</p>
              )}
 
                 <input type="password"
@@ -95,7 +95,7 @@ function Signup(){
                 })}
                 className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Confirm Password" />
                 {errors.confirmPassword && (
-                <p className="text-red-500">{errors.confirmPassword.message}</p>
+                <p className="text-red-500 text-[14px]">{errors.confirmPassword.message}</p>
              )}
 
 
