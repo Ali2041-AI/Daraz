@@ -33,8 +33,20 @@ function Signup(){
             <form  onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 w-[98%]" >
 
 
-              <input type="text" placeholder="Enter Your Name.." className="border border-gray-400 px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full" />
-
+              <input type="text" placeholder="Enter Name.." {...register('name',{
+                required:{
+                    value:true,
+                    message:"Please Enter Name!!"
+                },
+                minLength:{
+                    value:3,
+                    message:"Name should be at least 3 characters"
+                }
+              })} className={`border border-gray-400    px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full`} />
+            
+             {errors.name && (
+                <p className="text-red-500">{errors.name.message}</p>
+             )}
 
                 <input className="border border-gray-400 px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full" type="text" {...register('email',{
                     minLength:{
@@ -42,13 +54,52 @@ function Signup(){
                         message:"At least 6 Characters!"
                     },
                     required:{
-                        message:"Enter Email..."
+                        value:true,
+                        message:"Email missing!!"
                     }
 
                 })}   placeholder="Please enter your Email" />
-                <input type="password" className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Minimum 6 characters" />
-                <input type="password" className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Confirm Password" />
-                <button type="submit" className="text-white bg-[#F85606] w-full rounded-md py-3 font-semibold mx-auto">SIGNUP</button>
+                {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+             )}
+
+
+
+
+                <input type="password"
+                {...register('password',{
+                    required:{
+                        value:true,
+                        message:"password is missing!!"
+                    },
+                    minLength:{
+                        value:6,
+                        message:'Password must be at least 6 characters long!!'
+                    }
+                })}
+                 className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Minimum 6 characters" />
+                {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+             )}
+
+                <input type="password"
+                {...register('confirmPassword',{
+                    required:{
+                        value:true,
+                        message:'Confirm Password Missing!!'
+                    }
+                    ,
+                    validate:(value)=>{
+                       return value===getValues("password") || 'Passwords must Match'
+                    }
+                })}
+                className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Confirm Password" />
+                {errors.confirmPassword && (
+                <p className="text-red-500">{errors.confirmPassword.message}</p>
+             )}
+
+
+                <button type="submit" disabled={isSubmitting} className="text-white bg-[#F85606] disabled:bg-gray-700 w-full rounded-md py-3 font-semibold mx-auto">SIGNUP</button>
             </form>
             <p className="text-sm opacity-60 mt-5 font-notoSans mb-2">Already have an account?</p>
             <span className="text-[#1E71FF] font-semibold text-sm">Log in now</span>
