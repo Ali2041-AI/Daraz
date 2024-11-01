@@ -4,25 +4,39 @@ import { useNavigate } from "react-router";
 import authService from "../appwrite/authService";
 import { useDispatch } from "react-redux";
 import { logInUser,logOutUser } from "../store/darazSlice";
+import { useState } from "react";
 
 
 function Login(){
 
 
-    const {register,handleSubmit,getValues,formState:{errors,isSubmitting},reset}=useForm()
+    const {register,handleSubmit,getValues,formState:{errors},reset}=useForm()
+    const [isSubmitting,setIsSubmitting]=useState(false);
+    const [error,setError]=useState("");
     const navigate=useNavigate();
     const dispatch=useDispatch();
 
 
-    const onSubmit=(data)=>{
-        authService.loginUser({email:data.email, pass:data.password})
-        .then(()=>{
-            authService.getLogInUser()
-            .then((userData)=>{
-                dispatch( logInUser({...userData}))
-                navigate('/account');
-            })
-        })        
+    const onSubmit=async (data)=>{
+        setIsSubmitting(true);
+
+       try {
+        await authService.loginUser({email:data.email, pass:data.password})
+        const userData= await authService.getLogInUser();
+        dispatch(logInUser({...userData}));
+        navigate('/account');  
+        
+       } catch (error) {
+        console.log(error);
+        setError(error.message);
+       }
+
+       setIsSubmitting(false);
+       reset();
+
+
+
+
     }
 
 
@@ -46,12 +60,14 @@ function Login(){
                 <form  onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 w-[98%]" >
     
     
-                 
+                 {error && (
+                    <p>{error}</p>
+                 ) }
     
                     <input className="border border-gray-400 px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full" type="text" {...register('email',{
                         minLength:{
-                            value:6,
-                            message:"At least 6 Characters!"
+                            value:8,
+                            message:"At least 8 Characters!"
                         },
                         required:{
                             value:true,
@@ -74,10 +90,10 @@ function Login(){
                         },
                         minLength:{
                             value:6,
-                            message:'Password must be at least 6 characters long!!'
+                            message:'Password must be at least 8 characters long!!'
                         }
                     })}
-                     className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Minimum 6 characters" />
+                     className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Minimum 8 characters" />
                     {errors.password && (
                     <p className="text-red-500 text-[14px]">{errors.password.message}</p>
                  )}
