@@ -61,7 +61,7 @@ function Login(){
     
     
                  {error && (
-                    <p>{error}</p>
+                    <p className="text-sm text-red-500">{error}</p>
                  ) }
     
                     <input className="border border-gray-400 px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full" type="text" {...register('email',{

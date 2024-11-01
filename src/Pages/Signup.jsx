@@ -5,13 +5,12 @@ import images from "../assets/Images";
 import { useDispatch } from "react-redux";
 import {logInUser,logOutUser} from '../store/darazSlice'
 import { useState } from "react";
-import { useSubmit } from "react-router-dom";
 function Signup(){
 
     const navigate=useNavigate();
     const  {register,handleSubmit,getValues,reset,formState:{errors}}=useForm()
     const [isSubmitting,setIsSubmitting]=useState(false);
-    const [error,setError]=useSubmit("");
+    const [error,setError]=useState("");
     const dispatch=useDispatch();
 
 
@@ -36,7 +35,7 @@ function Signup(){
         
        } catch (error) {
         console.log(error);
-        setError(error.message);
+        setError(error);
        }
        setIsSubmitting(false);
        reset();
