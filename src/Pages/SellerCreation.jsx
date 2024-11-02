@@ -6,14 +6,12 @@ import images from "../assets/Images";
 import sellerAccountService from "../appwrite/sellerAccountService";
 import { LogInSeller } from "../store/darazSlice";
 import { ToastContainer, toast } from 'react-toastify';
-import env from "../envExporter";
 import 'react-toastify/dist/ReactToastify.css';
 
 
 
 function SellerCreation(){
 
-    console.log(env);
 
 
 
