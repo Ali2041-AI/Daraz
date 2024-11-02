@@ -27,6 +27,7 @@ function SellerCreation(){
 
 
     const onSubmit=async (data)=> {
+        console.log(data);
         try {
             setIsSubmitting(true);
             const response=await sellerAccountService.createSellerAccount({
