@@ -68,6 +68,7 @@ function App() {
 
   return (
     <>
+    <p>I am new here</p>
    <Outlet />
 
     
