@@ -6,10 +6,14 @@ import images from "../assets/Images";
 import sellerAccountService from "../appwrite/sellerAccountService";
 import { LogInSeller } from "../store/darazSlice";
 import { ToastContainer, toast } from 'react-toastify';
+import env from "../envExporter";
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 function SellerCreation(){
+
+    console.log(env);
 
 
 
@@ -20,6 +24,7 @@ function SellerCreation(){
     const [succefull,setSuccefull]=useState(false);
     const navigate=useNavigate();
     const dispatch=useDispatch();
+    
 
 
     const user=useSelector((state)=>state.userData.userData);
