@@ -5,6 +5,8 @@ import authService from "../appwrite/authService";
 import { useDispatch } from "react-redux";
 import { logInUser,logOutUser } from "../store/darazSlice";
 import { useState } from "react";
+import sellerAccountService from "../appwrite/sellerAccountService";
+import {LogInSeller,LogOutSeller} from '../store/darazSlice'
 
 
 function Login(){
@@ -17,14 +19,25 @@ function Login(){
     const dispatch=useDispatch();
 
 
+
+
     const onSubmit=async (data)=>{
         setIsSubmitting(true);
 
        try {
         await authService.loginUser({email:data.email, pass:data.password})
         const userData= await authService.getLogInUser();
-        dispatch(logInUser({...userData}));
+        if(userData){
+            dispatch(logInUser({...userData}));
+            const sellerData=await sellerAccountService.getSellerData(userData?.$id);
+            if(sellerData.total>0){
+                const data=sellerData.documents[0];
+                dispatch(LogInSeller({...data}));
+                console.log(data);
+            }
+        }
         navigate('/account');  
+        
         
        } catch (error) {
         console.log(error);

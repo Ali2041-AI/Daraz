@@ -13,6 +13,7 @@ import Policies from '../assets/Policies.png'
 import sellerIcon from '../assets/sellerIcon.png'
 import singleBack from '../assets/singleBack.png'
 import logout from '../assets/logout.jpeg'
+import doneBtn from '../assets/doneBtn.png'
 
 
 
@@ -38,7 +39,8 @@ const images={
     Policies,
     sellerIcon,
     singleBack,
-    logout
+    logout,
+    doneBtn
 }
 
 export default images;
