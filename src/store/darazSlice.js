@@ -7,6 +7,7 @@ import { createSlice } from "@reduxjs/toolkit";
     isSeller:false,
     sellerData:null,
     storeData:null,
+    refreshProducts:false,
  }
 
 
@@ -38,9 +39,12 @@ const darazSlice=createSlice({
         },
         setStoreData:(state,action)=>{
             state.storeData=action.payload;
+        },
+        changeRefreshProducts:(state)=>{
+           state.refreshProducts=!state.refreshProducts;
         }
     }
 })
 
-export const {logInUser,logOutUser,LogInSeller,LogOutSeller,setStoreData}=darazSlice.actions;
+export const {logInUser,logOutUser,LogInSeller,LogOutSeller,setStoreData,changeRefreshProducts}=darazSlice.actions;
 export default darazSlice.reducer;

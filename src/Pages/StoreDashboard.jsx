@@ -1,94 +1,114 @@
 import { useSelector } from "react-redux";
 import images from "../assets/Images";
-import store from "../store/store";
 import { useEffect, useState } from "react";
 import sellerAccountService from "../appwrite/sellerAccountService";
-import {  Outlet, useLocation, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
+import DisplayProduct from "./DisplayProduct";
 
-function StoreDashboard(){
-
-    const storeData=useSelector((state)=>state.userData.storeData);
-    const storeID=storeData?.$id;
-    console.log(storeData);
-    const [productData,setProductData]=useState([]);
-    const location=useLocation();
+function StoreDashboard() {
+    const storeData = useSelector((state) => state.userData.storeData);
+    const refresher=useSelector((state)=>state.userData.refreshProducts);
+    const storeID = storeData?.$id;
+    const [productData, setProductData] = useState([]);
+    const location = useLocation();
     const isLoginStoreDashboard = location.pathname === '/account/storeDashboard';
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
-    useEffect(()=>{
+    
+
+
+
+
+    useEffect(() => {
         sellerAccountService.getSellerProductData(storeID)
-        .then((res)=>{
-            console.log(res);
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
+            .then((res) => {
+                setProductData(res.documents);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [refresher]);
 
-
-
-    },[])
-
-
-    return(
+    return (
         <>
-        {
-            isLoginStoreDashboard
-            ?
+            {isLoginStoreDashboard ? (
+                <div className="font-notoSans min-h-screen bg-gray-100 pb-20"> {/* Adjusted padding-bottom */}
+                    {/* Header Section */}
+                    <div className="bg-[#FF4100] text-white py-3 shadow-lg">
+                        <div className="w-[97%] mx-auto flex items-center gap-3 py-2">
+                            <img
+                                className="cursor-pointer w-8 h-5"
+                                onClick={() => navigate('/account')}
+                                src={images.backIcon}
+                                alt="Back"
+                            />
+                            <p className="font-semibold text-2xl">Seller Center</p>
+                        </div>
+                    </div>
 
-          <div>
+                    <div className="w-[97%] mx-auto py-5">
+                        {/* Page Title */}
+                        <h2 className="text-3xl font-bold text-gray-800 mb-6">Store Dashboard</h2>
+                        <h3 className="text-xl font-bold text-gray-700 mb-4">My Products</h3>
 
-         <div className="mb-5 w-[97%] mx-auto mt-4">
-                            <img className="pointer" onClick={()=>navigate('/account')} src={images.singleBack} alt=""  />
+                        {/* Product Table */}
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full bg-white shadow-lg rounded-lg border border-gray-200">
+                                <thead className="bg-gray-200">
+                                    <tr>
+                                        <th className="px-6 py-3 text-left font-medium text-gray-700">Product Title</th>
+                                        <th className="px-6 py-3 text-left font-medium text-gray-700">Stock</th>
+                                        <th className="px-6 py-3 text-left font-medium text-gray-700">Price</th>
+                                        <th className="px-6 py-3 text-left font-medium text-gray-700">Discounted Price</th>
+                                        <th className="px-6 py-3 text-left font-medium text-gray-700">Products Sold</th>
+                                        <th className="px-6 py-3 text-left font-medium text-gray-700">Images</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {productData.map((product) => (
+                                        <DisplayProduct key={product.$id} product={product}  />
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
 
-         <div className="w-[97%] mx-auto">
+                        {/* Add Product Button */}
+                        <div className="mt-6 flex justify-end relative z-10">
+                            <button
+                                onClick={() => navigate('/account/storeDashboard/postProduct')}
+                                className="bg-blue-600 hover:bg-blue-700 transition-colors px-5 py-2 rounded-md text-white font-semibold shadow-lg"
+                                style={{ marginBottom: '70px' }} // Ensure space from footer
+                            >
+                                Add New Product
+                            </button>
+                        </div>
+                    </div>
 
-         <div className=" mb-10 mx-auto">
-            <p className="login-by-password-header  text-[#2e3346]  text-3xl  font-extrabold leading-[7.067vw]" >Store Dashboard</p>
-         </div>
-         <div className=" mb-10 mx-auto">
-            <p className="login-by-password-header  text-[#2e3346]  text-xl  font-extrabold leading-[7.067vw]" >My Products</p>
-         </div>
-
-         <div className="w-full fixed bottom-0 font-notoSans">
-            <div className="w-[81%] mx-auto max-w-[600px] flex justify-between items-center">
-            <div className="flex flex-col items-center">
-                <img src={images.sellerProducts} className="w-6" alt=""  />
-                <p className="text-[10px] opacity-70">Products</p>
-
-            </div>
-            <div className="flex flex-col items-center">
-                <img src={images.revenue} className="w-6" alt="" />
-                <p className="text-[10px] opacity-70">Revenue</p>
-
-            </div>
-            <div className="flex flex-col items-center">
-                <img src={images.orders} className="w-6" alt="" />
-                <p className="text-[10px] opacity-70">Orders</p>
-            </div>
-            <div className="flex flex-col items-center " onClick={()=>navigate('/account')}>
-                <img src={images.settings} className="w-6" alt="" />
-                <p className="text-[10px] opacity-70">Settings</p>
-            </div>
-
-            </div>
-         </div>
-
-         <div className="ProductsArea mb-6">
-           Products will be displayed Here
-         </div>
-          
-         <div className="buttons">
-            <button onClick={()=>navigate('/account/storeDashboard/postProduct')}  className="bg-blue-600 px-3 py-1 rounded-md text-white">Add New Products</button>
-        </div> 
-        </div>     
-        </div>  
-       :<Outlet />
-        }
+                    {/* Footer Navigation */}
+                    <div className="w-full fixed bottom-0 bg-white shadow-lg py-3">
+                        <div className="w-[80%] mx-auto max-w-[600px] flex justify-between items-center text-gray-600">
+                            <FooterIcon src={images.sellerProducts} label="Products" />
+                            <FooterIcon src={images.revenue} label="Revenue" />
+                            <FooterIcon src={images.orders} label="Orders" />
+                            <FooterIcon src={images.settings} label="Settings" onClick={() => navigate('/account')} />
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <Outlet />
+            )}
         </>
-    )
+    );
+}
 
+function FooterIcon({ src, label, onClick }) {
+    return (
+        <div onClick={onClick} className="flex flex-col items-center cursor-pointer hover:text-blue-600 transition-colors">
+            <img src={src} className="w-6 mb-1" alt={label} />
+            <p className="text-xs">{label}</p>
+        </div>
+    );
 }
 
 export default StoreDashboard;

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logInUser,logOutUser } from "../store/darazSlice";
 import { useState } from "react";
 import sellerAccountService from "../appwrite/sellerAccountService";
-import {LogInSeller,LogOutSeller,setStoreData} from '../store/darazSlice'
+import {LogInSeller,LogOutSeller,setStoreData,changeRefreshProducts} from '../store/darazSlice'
 
 
 function PostProduct(){
@@ -16,6 +16,9 @@ function PostProduct(){
    const [productImages,setProductImages]=useState([]);
    const storeData=useSelector((state)=>state.userData.storeData);
    const storeID=storeData?.$id;
+   
+   const navigate=useNavigate();
+   const dispatch=useDispatch();
 
    const [imageCount,setImageCount]=useState(1);
     const {register,handleSubmit,getValues,setValue,watch,formState:{errors},reset}=useForm({
@@ -46,8 +49,7 @@ function PostProduct(){
     const [error,setError]=useState("");
     const [productImage,setProductImage]=useState([]);
 
-    const navigate=useNavigate();
-    const dispatch=useDispatch();
+  
 
 
 
@@ -69,8 +71,8 @@ function PostProduct(){
             productImages:data.ProductImages,
             storeID
         })
-        
-        navigate('/storeDashboard')
+        dispatch(changeRefreshProducts());
+        navigate('/account/storeDashboard')
         
        } catch (error) {
         console.log(error);
