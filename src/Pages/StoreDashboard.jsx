@@ -7,6 +7,7 @@ import DisplayProduct from "./DisplayProduct";
 
 function StoreDashboard() {
     const storeData = useSelector((state) => state.userData.storeData);
+    console.log(storeData);
     const refresher=useSelector((state)=>state.userData.refreshProducts);
     const storeID = storeData?.$id;
     const [productData, setProductData] = useState([]);

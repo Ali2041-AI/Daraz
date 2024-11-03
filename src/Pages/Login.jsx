@@ -34,8 +34,13 @@ function Login(){
             if(sellerData.total>0){
                 const data=sellerData.documents[0];
                 dispatch(LogInSeller({...data}));
+                console.log(data);
                 const storeData=await sellerAccountService.getStoreData(data);
-                dispatch(setStoreData({...storeData}));
+                if(storeData.total>0){
+                    const newData=storeData.documents[0];
+                    console.log(newData);
+                    dispatch(setStoreData({...newData}));
+                }
             }
         }
         navigate('/');  
