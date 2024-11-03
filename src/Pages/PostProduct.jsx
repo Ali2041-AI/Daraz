@@ -69,8 +69,8 @@ function PostProduct(){
             productImages:data.ProductImages,
             storeID
         })
-        console.log(productData);
         
+        navigate('/storeDashboard')
         
        } catch (error) {
         console.log(error);
