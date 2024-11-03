@@ -14,6 +14,7 @@ import Login from './Pages/Login.jsx'
 import SellerCreation from './Pages/SellerCreation.jsx'
 import StoreCreation from './Pages/StoreCreation.jsx'
 import StoreDashboard from './Pages/StoreDashboard.jsx'
+import PostProduct from './Pages/PostProduct.jsx'
 
 
 const route=createBrowserRouter([
@@ -53,8 +54,16 @@ const route=createBrowserRouter([
         }
         ,{
           path:'storeDashboard',
-          element:<StoreDashboard />
+          element:<StoreDashboard />,
+          children:[
+            {
+              path:'postProduct',
+              element:<PostProduct />
+            }
+          ]
+
         }
+        
 
       ] 
     },

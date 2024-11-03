@@ -23,6 +23,7 @@ function Login(){
 
     const onSubmit=async (data)=>{
         setIsSubmitting(true);
+        console.log(data);
 
        try {
         await authService.loginUser({email:data.email, pass:data.password})

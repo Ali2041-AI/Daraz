@@ -3,6 +3,7 @@ import images from "../assets/Images";
 import store from "../store/store";
 import { useEffect, useState } from "react";
 import sellerAccountService from "../appwrite/sellerAccountService";
+import {  Outlet, useLocation, useNavigate } from "react-router";
 
 function StoreDashboard(){
 
@@ -10,6 +11,10 @@ function StoreDashboard(){
     const storeID=storeData?.$id;
     console.log(storeData);
     const [productData,setProductData]=useState([]);
+    const location=useLocation();
+    const isLoginStoreDashboard = location.pathname === '/account/storeDashboard';
+
+    const navigate=useNavigate();
 
     useEffect(()=>{
         sellerAccountService.getSellerProductData(storeID)
@@ -27,10 +32,22 @@ function StoreDashboard(){
 
     return(
         <>
-         <div className="w-[97%] mb-10 mx-auto">
+        {
+            isLoginStoreDashboard
+            ?
+
+          <div>
+
+         <div className="mb-5 w-[97%] mx-auto mt-4">
+                            <img className="pointer" onClick={()=>navigate('/account')} src={images.singleBack} alt=""  />
+                        </div>
+
+         <div className="w-[97%] mx-auto">
+
+         <div className=" mb-10 mx-auto">
             <p className="login-by-password-header  text-[#2e3346]  text-3xl  font-extrabold leading-[7.067vw]" >Store Dashboard</p>
          </div>
-         <div className="w-[97%] mb-10 mx-auto">
+         <div className=" mb-10 mx-auto">
             <p className="login-by-password-header  text-[#2e3346]  text-xl  font-extrabold leading-[7.067vw]" >My Products</p>
          </div>
 
@@ -57,6 +74,18 @@ function StoreDashboard(){
 
             </div>
          </div>
+
+         <div className="ProductsArea mb-6">
+           Products will be displayed Here
+         </div>
+          
+         <div className="buttons">
+            <button onClick={()=>navigate('/account/storeDashboard/postProduct')}  className="bg-blue-600 px-3 py-1 rounded-md text-white">Add New Products</button>
+        </div> 
+        </div>     
+        </div>  
+       :<Outlet />
+        }
         </>
     )
 
