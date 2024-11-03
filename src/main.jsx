@@ -12,6 +12,8 @@ import LoginSignupPage from './Pages/LoginSignupPage.jsx'
 import Signup from './Pages/Signup.jsx'
 import Login from './Pages/Login.jsx'
 import SellerCreation from './Pages/SellerCreation.jsx'
+import StoreCreation from './Pages/StoreCreation.jsx'
+import StoreDashboard from './Pages/StoreDashboard.jsx'
 
 
 const route=createBrowserRouter([
@@ -44,6 +46,14 @@ const route=createBrowserRouter([
         ,{
           path:'sellerCreation',
           element:<SellerCreation />
+        }
+        ,{
+          path:'storeCreation',
+          element:<StoreCreation />
+        }
+        ,{
+          path:'storeDashboard',
+          element:<StoreDashboard />
         }
 
       ] 

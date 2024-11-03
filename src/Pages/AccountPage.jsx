@@ -12,6 +12,7 @@ function Account(){
   const isLoginSignupRoute = location.pathname === '/account';
   const logInStatus=useSelector((state)=>state.userData.loginStatus);
   const logInUserName=useSelector((state)=>state.userData.userData)?.name;
+  const isSeller=useSelector((state)=>state.userData.loginStatus);
   console.log(logInUserName);
   const dispatch=useDispatch();
 
@@ -80,10 +81,10 @@ function Account(){
                     <p className='text-[16px] opacity-95' >My Wishlist & Followed Stores</p>
                     </div>
               </div>
-              <div onClick={()=>navigate('/account/sellerCreation')} className='opacity-90  py-2 mb-2 bg-white w-full tracking-wider text-[11px]'>
+              <div onClick={()=>isSeller?navigate('/account/storeCreation') :navigate('/account/sellerCreation')} className='opacity-90  py-2 mb-2 bg-white w-full tracking-wider text-[11px]'>
                 <div className='w-[97%]  mx-auto flex gap-4 items-center'>
                     <img src={images.sellerIcon} className='w-6' alt="" />
-                    <p className='text-[16px] opacity-95 '>Create Seller Account</p>
+                    <p className='text-[16px] opacity-95 '>{isSeller?'Create Store':'Create Seller Account'}</p>
                     </div>
               </div>
               <div className='opacity-90 py-2 mb-1 bg-white w-full tracking-wider text-[11px]'>

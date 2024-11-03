@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import images from "../assets/Images";
 import sellerAccountService from "../appwrite/sellerAccountService";
-import { LogInSeller } from "../store/darazSlice";
+import { LogInSeller,setStoreData } from "../store/darazSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 
-function SellerCreation(){
+function StoreCreation(){
 
 
 
@@ -27,32 +27,31 @@ function SellerCreation(){
 
     const user=useSelector((state)=>state.userData.userData);
     const userID=user?.$id;
+    const seller=useSelector((state)=>state.userData.sellerData);
+    const sellerID=seller?.$id;
+    
+    
 
 
     const onSubmit=async (data)=> {
-        console.log(data);
         try {
-            setIsSubmitting(true);
-            const response=await sellerAccountService.createSellerAccount({
-                sellerName:data.sellerName,
-                sellerPhoneNo:data.phoneNo,
-                address:data.address,
-                cnic:data.cnic,
-                userID
-            })
-            console.log(response);
-            dispatch(LogInSeller({...response}));
-            navigate('/account/storeCreation');
-            setSuccefull(true);
+
+             const fileID=await sellerAccountService.addImage(data.storeImg[0]);
+             if(fileID){
+             const store=await sellerAccountService.createStore(data.storeName,fileID,sellerID);
+             dispatch(setStoreData({...store}));
+             navigate('/account/storeDashboard')   
+
+             }
+             else{
+                return
+             }
             
         } catch (error) {
             console.log(error);
-            setError(error.message);
         }
 
-        setIsSubmitting(false);
-        reset();
-        
+
     }
 
 
@@ -62,6 +61,15 @@ function SellerCreation(){
 
     return(
         <>
+        {succefull
+        ? <div className="min-h-screen w-full flex flex-col justify-center items-center">
+            <img className="w-32" src={images.doneBtn} alt="" />
+           <span className="hidden">{toast.success("Seller Account Created!!")}</span>  
+            <button  type="button" className=" bg-[#25BA2F] px-3 py-1 rounded-md text-white">create store</button>
+            <ToastContainer />
+        
+        </div>
+        :
         <div className="w-full font-notoSans">
             <div className="w-[97%] mx-auto mt-4">
                 <div>
@@ -70,7 +78,7 @@ function SellerCreation(){
                     </div>
                 </div>
                 <div className="ml-[2%] mb-10">
-                     <div className="login-by-password-header  text-[#2e3346]  text-[5.6vw]  font-extrabold leading-[7.067vw]">BECOME A DARAZ SELLER</div>
+                     <div className="login-by-password-header  text-[#2e3346]  text-[5.6vw]  font-extrabold leading-[7.067vw]">CREATE YOUR ONLINE STORE</div>
                      <div className="login-by-password-header  text-[#2e3346]  text-[5.6vw]  font-bold leading-[7.067vw]">TODAY!</div>
                 </div>
                 <div className="flex flex-col justify-center items-center flex-1">
@@ -83,74 +91,46 @@ function SellerCreation(){
                 <p className="text-sm text-red-500">{error}</p>
              ) }
 
-                <input className="border border-gray-400 px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full" type="text" {...register('sellerName',{
+                <input className="border border-gray-400 px-2 py-2 mx-auto  outline-[#1641B5]   rounded-md w-full" type="text" {...register('storeName',{
                     minLength:{
                         value:3,
                         message:"At least 3 Characters!"
                     },
                     required:{
                         value:true,
-                        message:"Seller Name missing!!"
+                        message:"Store name is missing!!"
                     }
 
-                })}   placeholder="Seller Name.." />
+                })}   placeholder="Store Name.." />
                 {errors.sellerName && (
-                <p className="text-red-500 text-[14px]">{errors.sellerName.message}</p>
+                <p className="text-red-500 text-[14px]">{errors.storeName.message}</p>
              )}
 
 
 
 
-                <input type="number"
-                {...register('phoneNo',{
-                    required:{
-                        value:true,
-                        message:"Phone No is missing!!"
-                    },
-                    minLength:{
-                        value:11,
-                        message:'Number must be at least 11 digits long!!'
-                    }
-                })}
-                 className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Phone No.." />
-                {errors.phoneNo && (
-                <p className="text-red-500 text-[14px]">{errors.phoneNo.message}</p>
-             )}
+                
 
-                <input type="number"
-                {...register('cnic',{
+                <input type="file"
+                {...register('storeImg',{
                     required:{
                         value:true,
-                        message:"Cnic No is missing!!"
+                        message:"Store Profile Pic Missing!!"
                     },
-                    minLength:{
-                        value:13,
-                        message:'Number must be at least 13 digits long!!'
-                    }
                 })}
                  className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Seller Cnic.." />
                 {errors.cnic && (
-                <p className="text-red-500 text-[14px]">{errors.cnic.message}</p>
+                <p className="text-red-500 text-[14px]">{errors.storeImg.message}</p>
              )}
 
-                <input type="text"
-                {...register('address',{
-                    required:{
-                        value:true,
-                        message:"Seller Address is missing!!"
-                    },
-                })}
-                 className="border mx-auto border-gray-400 px-2 py-2  outline-[#1641B5]   rounded-md w-full" placeholder="Seller Address.." />
-                {errors.address && (
-                <p className="text-red-500 text-[14px]">{errors.address.message}</p>
-             )}
+      
 
               
 
 
 
 
-                <button type="submit" disabled={isSubmitting} className="text-white bg-[#F85606] disabled:cursor-not-allowed disabled:bg-gray-700 w-full rounded-md py-3 mb-3 font-semibold mx-auto">Register As a Seller</button>
+                <button type="submit" disabled={isSubmitting} className="text-white bg-[#F85606] disabled:cursor-not-allowed disabled:bg-gray-700 w-full rounded-md py-3 mb-3 font-semibold mx-auto">Create Store</button>
             </form>
             
 
@@ -160,7 +140,8 @@ function SellerCreation(){
 
 
             </div>
- 
+}
+        
         </>
  
 )
@@ -171,4 +152,4 @@ function SellerCreation(){
 
 }
 
-export default SellerCreation;
+export default StoreCreation;
