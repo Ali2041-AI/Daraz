@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { logInUser,logOutUser } from "../store/darazSlice";
 import { useState } from "react";
 import sellerAccountService from "../appwrite/sellerAccountService";
-import {LogInSeller,LogOutSeller} from '../store/darazSlice'
+import {LogInSeller,LogOutSeller,setStoreData} from '../store/darazSlice'
 
 
 function Login(){
@@ -33,10 +33,11 @@ function Login(){
             if(sellerData.total>0){
                 const data=sellerData.documents[0];
                 dispatch(LogInSeller({...data}));
-                console.log(data);
+                const storeData=await sellerAccountService.getStoreData(data);
+                dispatch(setStoreData({...storeData}));
             }
         }
-        navigate('/account');  
+        navigate('/');  
         
         
        } catch (error) {

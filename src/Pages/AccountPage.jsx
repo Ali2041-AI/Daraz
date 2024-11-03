@@ -4,6 +4,7 @@ import Images from '../assets/Images'
 import { useDispatch, useSelector } from 'react-redux';
 import authService from '../appwrite/authService';
 import { logInUser,logOutUser } from '../store/darazSlice';
+import store from '../store/store';
 
 function Account(){
 
@@ -12,7 +13,10 @@ function Account(){
   const isLoginSignupRoute = location.pathname === '/account';
   const logInStatus=useSelector((state)=>state.userData.loginStatus);
   const logInUserName=useSelector((state)=>state.userData.userData)?.name;
-  const isSeller=useSelector((state)=>state.userData.loginStatus);
+  const storeData=useSelector((state)=>state.userData.storeData);
+  console.log(storeData);
+  const isSeller=useSelector((state)=>state.userData.isSeller);
+  console.log(isSeller);
   console.log(logInUserName);
   const dispatch=useDispatch();
 
@@ -29,6 +33,7 @@ function Account(){
       authService.logOutUser()
       .then(()=>{
         dispatch(logOutUser());
+        navigate('/')
       })
       .catch((error)=>{
         console.log(error);
@@ -41,6 +46,20 @@ function Account(){
 
 
 
+   }
+   const navigateStore=()=>{
+    if(storeData){
+      navigate('/account/storeDashboard');
+    }
+    else if(isSeller){
+      navigate('/account/storeCreation');
+    }
+    else if(logInStatus && isSeller===false){
+      navigate('/account/sellerCreation');
+    }
+    else{
+      navigate('/account/loginSignup');
+    }
    }
 
    
@@ -81,10 +100,10 @@ function Account(){
                     <p className='text-[16px] opacity-95' >My Wishlist & Followed Stores</p>
                     </div>
               </div>
-              <div onClick={()=>isSeller?navigate('/account/storeCreation') :navigate('/account/sellerCreation')} className='opacity-90  py-2 mb-2 bg-white w-full tracking-wider text-[11px]'>
+              <div onClick={navigateStore} className='opacity-90  py-2 mb-2 bg-white w-full tracking-wider text-[11px]'>
                 <div className='w-[97%]  mx-auto flex gap-4 items-center'>
                     <img src={images.sellerIcon} className='w-6' alt="" />
-                    <p className='text-[16px] opacity-95 '>{isSeller?'Create Store':'Create Seller Account'}</p>
+                    <p className='text-[16px] opacity-95 '>{storeData?'Seller Dashboard':isSeller?'Create Store': 'Create Seller Account' } </p>
                     </div>
               </div>
               <div className='opacity-90 py-2 mb-1 bg-white w-full tracking-wider text-[11px]'>

@@ -30,7 +30,7 @@ function Signup(){
         await authService.loginUser({email:data.email, pass:data.password})
         const userData=await authService.getLogInUser()
         dispatch(logInUser({...userData}));
-        navigate('/account');
+        navigate('/');
     
         
        } catch (error) {

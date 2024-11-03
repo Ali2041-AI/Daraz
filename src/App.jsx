@@ -7,15 +7,19 @@ import Home from './Pages/Home'
 import Store from './Pages/Store'
 import sellerAccountService from './appwrite/sellerAccountService'
 import Account from './Pages/AccountPage'
-import { Outlet } from 'react-router'
+import { Outlet, useNavigate } from 'react-router'
 
 
 function App() {
 
 
 
+  
   const dispatch=useDispatch();
   const sellerData=useSelector((state)=>state.userData.sellerData);
+  const logInStatus=useSelector((state)=>state.userData.loginStatus);
+  const navigate=useNavigate();   
+  
 
 
   useEffect(()=>{
@@ -28,9 +32,12 @@ function App() {
         const userID=res.$id;
         sellerAccountService.getSellerData(userID)
         .then((res)=>{
+          console.log(res);
          if(res.total===1){
           const sellerData=res.documents[0];
           dispatch(LogInSeller({...sellerData}))
+          console.log(sellerData);
+          console.log("i am here")
           sellerAccountService.getStoreData(sellerData)
           .then((data)=>{
             if(data.total===1){
@@ -61,7 +68,7 @@ function App() {
       }
     )
 
-  },[])
+  },[navigate])
 
 
 

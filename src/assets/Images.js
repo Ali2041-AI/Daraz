@@ -14,6 +14,10 @@ import sellerIcon from '../assets/sellerIcon.png'
 import singleBack from '../assets/singleBack.png'
 import logout from '../assets/logout.jpeg'
 import doneBtn from '../assets/doneBtn.png'
+import sellerProducts from '../assets/sellerProducts.png'
+import revenue from '../assets/revenue.png'
+import orders from '../assets/orders.png'
+import settings from '../assets/settings.png'
 
 
 
@@ -40,7 +44,11 @@ const images={
     sellerIcon,
     singleBack,
     logout,
-    doneBtn
+    doneBtn,
+    sellerProducts,
+    revenue,
+    orders,
+    settings
 }
 
 export default images;

@@ -43,9 +43,12 @@ function Store(){
     let storeID=useSelector((state)=>state.userData.storeData);
     storeID=storeID?.$id;
     console.log(storeID);
+
     const sellerID=useSelector((state)=>state.userData.sellerData)?.$id;
     const user=useSelector((state)=>state.userData.userData);
     const userID=user?.$id;
+
+    
     const hanldeSellerAccountCreation=async (e)=>{
         e.preventDefault();
         setError("");

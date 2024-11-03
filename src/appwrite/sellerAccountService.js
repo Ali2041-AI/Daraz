@@ -42,11 +42,9 @@ class Seller{
                 throw("SELLER ACCOUNT CREATION :: APPWRITE ::ERROR ",error.message)
             
             }
-            
-
-
-
     }
+
+
 
     async getSellerData(userID){
         try {
@@ -64,6 +62,25 @@ class Seller{
         }
 
     }
+
+    async getSellerProductData(storeID){
+        try {
+            const productData=await this.databases.listDocuments(
+                env.APPWRITE_DB,
+                env.APPWRITE_PRODUCT_TABLE,
+                [
+                    Query.equal('storeID',storeID)
+                ]
+            )
+           return productData;
+            
+        } catch (error) {
+            throw("GET SELLER DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
+
     async getStoreData(sellerData){
 
         const sellerID=sellerData.$id;
