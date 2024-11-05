@@ -5,6 +5,7 @@ import imagesSlider from "../assets/ImageSlider";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import ProductPreview from "../components/ProductPreview";
+import Search from "../components/Search";
 
 function Home(){
 
@@ -13,16 +14,11 @@ function Home(){
     const [filteredTitles, setFilteredTitles] = useState([]);
     let filterdTitles=[];
     const navigate=useNavigate();
-    let i="a";
-    i.toLowerCase()
+
 
     const products=useSelector((state)=>state.userData.allProducts);
 
 
-
-    const handleSearch=()=>{
-        console.log(" i am here");
-    }
 
     const searchChange = (e) => {
         const searchValue = e.target.value;
@@ -50,26 +46,9 @@ function Home(){
 
     return(
         <>
+        <Search />
         {/* top search area fixex */}
-         <div className="search-area  z-50 bg-[#FAF6FC] w-full fixed top-0  font-notoSans py-3">
-            <div className="w-[91%] mx-auto bg-white px-[2px] py-[2px] max-w-[600px] border-[0.7px] rounded-full border-[#FE4960] flex items-center justify-center overflow-hidden">
-               <img src={images.searchIcon} className="w-6 mr-1" alt="" />
-               <input type="text" className="flex-1 outline-none border-none text-sm" placeholder="search.." value={search} onChange={searchChange} />
-               <button onClick={handleSearch} className="bg-[#f85607] px-2 py-1 text-sm  text-white rounded-full">Search</button>
-            </div>
-            {search && (
-                    <div className="bg-white w-full font-notoSans text-sm font-semibold text-gray-900 h-auto">
-                        <ul>
-                            {filteredTitles.map((title, index) => (
-                                <li key={index} className="p-2 border-b-[0.5px]">
-                                    {title}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
          
-         </div>
          {/* Image Slider  */}
          <div className="min-h-screen w-full pt-[65px] bg-[#F0F1F6] rounded-lg  overflow-hidden ">
             <div className="w-[91%] mx-auto max-w-[600px] rounded-lg overflow-hidden">

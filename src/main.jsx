@@ -15,6 +15,7 @@ import SellerCreation from './Pages/SellerCreation.jsx'
 import StoreCreation from './Pages/StoreCreation.jsx'
 import StoreDashboard from './Pages/StoreDashboard.jsx'
 import PostProduct from './Pages/PostProduct.jsx'
+import SearchedProducts from './Pages/SearchedProducts.jsx'
 
 
 const route=createBrowserRouter([
@@ -24,6 +25,9 @@ const route=createBrowserRouter([
     {
       path:'/',
       element:<Home />
+    },{
+      path:'/searchProducts/:title',
+      element:<SearchedProducts/>
     },
     {
       path:'/account',
