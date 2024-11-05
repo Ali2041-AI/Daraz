@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import sellerAccountService from "../appwrite/sellerAccountService";
 
-function ProductPreview(){
+function ProductPreview({products}){
 
 
-   const products=useSelector((state)=>state.userData.allProducts);
+
 
 
     return (
