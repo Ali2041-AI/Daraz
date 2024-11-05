@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react";
 
 
  const initialState={
@@ -8,6 +9,7 @@ import { createSlice } from "@reduxjs/toolkit";
     sellerData:null,
     storeData:null,
     refreshProducts:false,
+    allProducts:[]
  }
 
 
@@ -42,9 +44,13 @@ const darazSlice=createSlice({
         },
         changeRefreshProducts:(state)=>{
            state.refreshProducts=!state.refreshProducts;
+        },
+        setProducts:(state,action)=>{
+            state.allProducts=action.payload;
+
         }
     }
 })
 
-export const {logInUser,logOutUser,LogInSeller,LogOutSeller,setStoreData,changeRefreshProducts}=darazSlice.actions;
+export const {logInUser,logOutUser,setProducts,LogInSeller,LogOutSeller,setStoreData,changeRefreshProducts}=darazSlice.actions;
 export default darazSlice.reducer;

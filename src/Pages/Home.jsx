@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import images from "../assets/Images";
 import Customslider from "../components/custom.slider";
 import imagesSlider from "../assets/ImageSlider";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import ProductPreview from "../components/ProductPreview";
 
 function Home(){
 
@@ -10,11 +12,16 @@ function Home(){
     const [search,setSearch]=useState("");
     const navigate=useNavigate();
 
+
     const handleSearch=()=>{
         console.log(" i am here");
-
-
     }
+
+
+
+   
+
+
 
 
 
@@ -41,11 +48,21 @@ function Home(){
 
                 </Customslider>
             </div>
-         </div>
+
+       
+         {/* {productData.map((product)=>(
+            <div key={product.$id}>
+                <ProductPreview product={product} />
+            </div>
+         ))} */}
+         <ProductPreview />
+
+</div>
+
          
          {/* Footer fixed at the bottom */}
 
-         <div className="w-full fixed bottom-0 font-notoSans">
+         <div className="w-full bg-white py-1 fixed bottom-0 font-notoSans">
             <div className="w-[81%] mx-auto max-w-[600px] flex justify-between items-center">
             <div className="flex flex-col items-center">
                 <img src={images.darazLogo} className="w-6" alt=""  />

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 import authService from './appwrite/authService'
-import {logInUser,logOutUser,LogInSeller,LogOutSeller,setStoreData} from './store/darazSlice'
+import {logInUser,logOutUser,LogInSeller,setProducts,setStoreData} from './store/darazSlice'
 import Home from './Pages/Home'
 import Store from './Pages/Store'
 import sellerAccountService from './appwrite/sellerAccountService'
@@ -69,6 +69,18 @@ function App() {
     )
 
   },[navigate])
+
+
+  useEffect(()=>{
+    sellerAccountService.getProductData()
+    .then((res)=>{
+      if(res.total>0){
+        const productData=res.documents;
+        console.log(productData);
+        dispatch(setProducts([...productData]));
+      }
+    })
+  },[])
 
 
 
