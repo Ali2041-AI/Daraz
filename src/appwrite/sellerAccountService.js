@@ -201,7 +201,26 @@ class Seller{
     }
 
 
-    async getProductData(){
+    async getProductData(productID=null){
+
+        try {
+            const productData=await this.databases.listDocuments(
+                env.APPWRITE_DB,
+                env.APPWRITE_PRODUCT_TABLE,
+               productID?[
+                Query.equal('$id',productID)
+               ]:[
+                
+               ]
+            )
+           return productData;
+            
+        } catch (error) {
+            throw("GET ALL PRODUCT  DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+    async getProductDataByID(productID){
 
         try {
             const productData=await this.databases.listDocuments(

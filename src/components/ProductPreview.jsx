@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
 import sellerAccountService from "../appwrite/sellerAccountService";
+import { useNavigate } from "react-router";
 
 function ProductPreview({products}){
+
+  const navigate=useNavigate();
 
 
 
 
 
     return (
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto mb-14 p-4">
         <div
           className="
             grid
@@ -21,7 +24,7 @@ function ProductPreview({products}){
           "
         >
           {products.map((product) => (
-            <div key={product.$id} className="bg-white shadow rounded overflow-hidden">
+            <div onClick={()=>navigate(`/productDisplay/${product.$id}`)} key={product.$id} className="bg-white shadow rounded overflow-hidden">
               {/* Product content */}
               <img  src={sellerAccountService.getImagePreview(product.productImages[0])} alt={product.name} className="w-full h-40" />
              <div className="px-2 py-1">

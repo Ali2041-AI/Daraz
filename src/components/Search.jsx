@@ -27,7 +27,6 @@ function Search(){
                 .filter((product) => product.productTitle.toLowerCase().includes(searchValue.toLowerCase()))
                 .map((product) => product.productTitle);
             setFilteredTitles(matchingTitles); // Update state
-            console.log(matchingTitles); // Log matching titles for debugging
         } else {
             setFilteredTitles([]); // Clear filteredTitles if search is empty
         }
