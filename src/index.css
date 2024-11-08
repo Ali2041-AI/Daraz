@@ -12,3 +12,18 @@
 .swiper-button-prev::after{
     display: none;
 }
+.swiper-pagination-fraction{
+    background-color: #00000075;
+    color: white !important;
+    width: 38px !important;
+    padding-block: 2px;
+    font-size: 12px;
+    padding-inline: 5px;
+    position: absolute !important;
+    left: 50% !important;
+    border-radius: 50px;
+   
+    translate: -50% !important;
+    /* display: none; */
+
+} 
