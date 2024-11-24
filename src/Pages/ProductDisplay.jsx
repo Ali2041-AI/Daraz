@@ -20,16 +20,15 @@ function ProductDisplay(){
 
     useEffect(()=>{
       
-       sellerAccountService.getProductData(productID)
+      sellerAccountService.getProductData(productID)
        .then((res)=>{
         if(res.total>0){
+           console.log(res.documents[0])
             setProuct(res.documents[0]);
             const imageArray=res.documents[0].productImages;
             const arr=[];
             Array.isArray(imageArray) &&  imageArray.forEach(element => {
               arr.push(sellerAccountService.getImagePreview(element));
-
-                
             });
             setImages(arr);
             setLoading(false);
@@ -94,6 +93,27 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"/>
         }
           
         </Swiper>
+
+     <div className="w-full mt-4 font-notoSans">
+      <div className="w-[96%] mx-auto">
+
+     {product?.discountedPrice?
+      <div className=" flex items-center mb-2" >
+      <p className="text-[#FE4960] text-2xl font-bold">Rs. {product.discountedPrice?`${product.discountedPrice} `:`${product.price}`}</p>  
+      <p className={product.discountedPrice?'text-[13.3px] mt-[6px] font-light self-center text-gray-600 line-through ml-1 mr-1':''} >Rs. {product.price?`${product.price} `:``}</p>      
+      <p className="bg-[#FEECEF] text-[#FE5D85]">-{parseInt(100-(product.discountedPrice/product.price)*100)}%</p>
+    </div>
+     :""
+     }
+     
+      <div className="title-area">
+        {product.productTitle}
+
+      </div>
+      </div>
+      
+      </div>   
+
 
         </>
 }
