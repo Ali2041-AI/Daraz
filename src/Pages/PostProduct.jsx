@@ -208,7 +208,7 @@ const addSizes=()=>{
         
         <div className="flex gap-8 items-center">
 
-        <input className="w-52" type="file" accept="image/png , image/jpg ,image/webp , image/jpeg, image/gif"  onChange={e=>setProductImage(e.target.files[0])} />
+        <input className="w-52" type="file" accept="image/png ,  ,image/jpg ,image/webp , image/jpeg, image/gif"  onChange={e=>setProductImage(e.target.files[0])} />
               <button type="button" onClick={addImage} className="bg-red-600 w-14 h-14 rounded-full text-3xl  hover:bg-red-500 text-white">+</button>     
         </div>
         <div className="flex gap-8">

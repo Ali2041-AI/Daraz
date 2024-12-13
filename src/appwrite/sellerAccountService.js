@@ -44,6 +44,97 @@ class Seller{
             }
     }
 
+    async createReview({productID,userID,reviewText,reviewImages,reviewStars}){
+
+        try {
+            const reviewID=ID.unique();
+            const data=await this.databases.createDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_REVIEWID,
+                reviewID,
+                {
+                    productID,
+                    userID,
+                    reviewText,
+                    reviewImages,
+                    reviewStars,
+                }
+
+                
+            )
+            return data;
+            
+        } catch (error) {
+            throw("REVIEW CREATION ERROR: APPWRITE ::ERROR ",error.message);
+            
+        }
+    }
+    
+
+    async addAddress({userID,address}){
+
+        console.log(userID);
+        console.log(address);
+
+
+        try {
+            const addressID=ID.unique();
+            const data=await this.databases.createDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_ADDRESSID,
+                addressID,
+                {
+                    userID,
+                      address
+                }
+
+                
+            )
+            return data;
+            
+        } catch (error) {
+            throw("ADDRESS ADDITION ERROR: APPWRITE ::ERROR ",error.message);
+            
+        }
+    }
+
+    async getAddressData(userID){
+        console.log(userID)
+        try {
+            const addressData=await this.databases.listDocuments(
+                env.APPWRITE_DB,
+                env.APPWRITE_ADDRESSID,
+                [
+                    Query.equal('userID',userID)
+                ]
+            )
+           return addressData;
+            
+        } catch (error) {
+            throw("GET ADDRESS DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
+    async updateAddressData(addressID,address){
+        try {
+            const response=await this.databases.updateDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_ADDRESSID,
+                addressID,
+                {
+                    address
+                }
+            )
+           return response;
+            
+        } catch (error) {
+            throw("UPDATE ADDRESS DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
+
 
 
     async getSellerData(userID){
@@ -62,6 +153,26 @@ class Seller{
         }
 
     }
+
+
+    async getReviewData(productID){
+        try {
+            const productData=await this.databases.listDocuments(
+                env.APPWRITE_DB,
+                env.APPWRITE_REVIEWID,
+                [
+                    Query.equal('productID',productID)
+                ]
+            )
+           console.log(productData);
+           return productData;
+            
+        } catch (error) {
+            throw("GET REVIEW DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
 
     async getSellerProductData(storeID){
         try {

@@ -17,6 +17,10 @@ import StoreDashboard from './Pages/StoreDashboard.jsx'
 import PostProduct from './Pages/PostProduct.jsx'
 import SearchedProducts from './Pages/SearchedProducts.jsx'
 import ProductDisplay from './Pages/ProductDisplay.jsx'
+import AddressPage from './Pages/AddressPage.jsx'
+import AddressForm from './components/AddressForm.jsx'
+// import AddressPage from './Pages/AddressPage.jsx'
+
 
 
 const route=createBrowserRouter([
@@ -34,6 +38,16 @@ const route=createBrowserRouter([
       path:'/productDisplay/:productID',
       element:<ProductDisplay />
 
+    },
+    {
+      path:'/addressPage',
+      element:<AddressPage />
+      ,children:[
+        {
+          path:"addressForm",
+          element:<AddressForm />
+        }
+      ]
     },
     {
       path:'/account',
@@ -72,8 +86,8 @@ const route=createBrowserRouter([
             }
           ]
 
-        }
-        
+        },
+
 
       ] 
     },
@@ -81,6 +95,7 @@ const route=createBrowserRouter([
       path:'/Store',
       element:<Store />
     }
+    ,
    ]
   }
 ])

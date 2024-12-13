@@ -5,6 +5,7 @@ import { act } from "react";
  const initialState={
     loginStatus:false,
     userData:null,
+    userAddresses:null,
     isSeller:false,
     sellerData:null,
     storeData:null,
@@ -47,10 +48,12 @@ const darazSlice=createSlice({
         },
         setProducts:(state,action)=>{
             state.allProducts=action.payload;
-
+        },
+        setUserAddresses:(state,action)=>{
+            state.userAddresses=action.payload;
         }
     }
 })
 
-export const {logInUser,logOutUser,setProducts,LogInSeller,LogOutSeller,setStoreData,changeRefreshProducts}=darazSlice.actions;
+export const {logInUser,logOutUser,setProducts,LogInSeller,LogOutSeller,setStoreData,changeRefreshProducts,setUserAddresses}=darazSlice.actions;
 export default darazSlice.reducer;

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 import authService from './appwrite/authService'
-import {logInUser,logOutUser,LogInSeller,setProducts,setStoreData} from './store/darazSlice'
+import {logInUser,logOutUser,LogInSeller,setProducts,setStoreData,setUserAddresses} from './store/darazSlice'
 import Home from './Pages/Home'
 import Store from './Pages/Store'
 import sellerAccountService from './appwrite/sellerAccountService'
@@ -30,6 +30,14 @@ function App() {
         if(res){
         dispatch(logInUser({...res}))
         const userID=res.$id;
+        sellerAccountService.getAddressData(userID)
+       .then((res)=>{
+        if(res.total>0){
+         dispatch(setUserAddresses({...res.documents[0]}));
+        }
+       })
+
+
         sellerAccountService.getSellerData(userID)
         .then((res)=>{
           console.log(res);

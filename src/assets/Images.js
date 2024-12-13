@@ -18,6 +18,7 @@ import sellerProducts from '../assets/sellerProducts.png'
 import revenue from '../assets/revenue.png'
 import orders from '../assets/orders.png'
 import settings from '../assets/settings.png'
+import iconLeft from '../assets/iconLeft.png'
 
 
 
@@ -48,7 +49,8 @@ const images={
     sellerProducts,
     revenue,
     orders,
-    settings
+    settings,
+    iconLeft
 }
 
 export default images;
