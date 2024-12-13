@@ -7,7 +7,7 @@ function Delivery({productID}){
 
 
 
-    const userAddresses=useSelector(state=>state.userData.userAddresses.address);
+    const userAddresses=useSelector(state=>state.userData?.userAddresses?.address);
     const parsedAddresses=userAddresses?.map((address)=>JSON.parse(address));
     const defaultAddress=parsedAddresses?.filter((address)=>address.default);
 
