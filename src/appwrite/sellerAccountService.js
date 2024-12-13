@@ -44,7 +44,7 @@ class Seller{
             }
     }
 
-    async createReview({productID,userID,reviewText,reviewImages,reviewStars}){
+    async createReview({name,productID,userID,reviewText,reviewImages,reviewStars}){
 
         try {
             const reviewID=ID.unique();
@@ -53,6 +53,7 @@ class Seller{
                 env.APPWRITE_REVIEWID,
                 reviewID,
                 {
+                    name,
                     productID,
                     userID,
                     reviewText,

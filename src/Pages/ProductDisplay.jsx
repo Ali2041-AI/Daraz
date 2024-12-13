@@ -12,6 +12,7 @@ import sellerAccountService from "../appwrite/sellerAccountService";
 import { setProducts } from "../store/darazSlice";
 import Delivery from "../components/Delivery";
 import Services from "../components/Services";
+import ProductReviewSection from "../components/ProductReviewSection";
 
 function ProductDisplay(){
 
@@ -19,11 +20,17 @@ function ProductDisplay(){
     const [product,setProuct]=useState({});
     const [images,setImages]=useState([]);
     const [reviews,setProductReviews]=useState([]);
+    
     const {productID}=useParams();
+    const [productImage,setProductImage]=useState([]);
     const [productRating,setProductRating]=useState(0);
     const [totalRatings,setTotelRatings]=useState(0);
     const [selectedColor,setSelectedColor]=useState("");
     const [selectedSize,setSelectedSize]=useState("");
+
+    const [imageLimitError,setImageLimitError]=useState(false); 
+    const [productImages,setProductImages]=useState([]);
+    const [imageCount,setImageCount]=useState(1);
 
     console.log(`Here is the product: `,product);
 
@@ -31,7 +38,9 @@ function ProductDisplay(){
     const {loading,setLoading}=useState(true);
     const [inputReview,setInputReview]=useState("");
     const [inputReviewStars,setInputReviewStart]=useState(0);
-    const userID=useSelector(state=>state.userData.userData)?.$id;
+    const userData=useSelector(state=>state.userData?.userData);
+    const userID=userData?.$id;
+    const userName=userData?.name;
   
     const navigate=useNavigate();
     
@@ -70,7 +79,8 @@ function ProductDisplay(){
     const giveReview=()=>{
       const reviewText=inputReview;
       const reviewStars=inputReviewStars;
-      sellerAccountService.createReview({productID,userID,reviewText,reviewStars})
+      const reviewImages=productImages;
+      sellerAccountService.createReview({name:userName,productID,userID,reviewText,reviewStars,reviewImages})
       .then((res)=>{
         console.log(res);
       })
@@ -89,6 +99,33 @@ function ProductDisplay(){
       setProductRating(averageRating);
 
     }
+
+
+    const addImage=()=>{
+      setImageLimitError(false);
+      if(productImages.length>3){
+          setImageLimitError(true);
+          return;
+      }
+      if(imageCount>5){
+          setImageLimitError(true);
+          return;
+
+      }
+      sellerAccountService.addImage(productImage)
+      .then((fileID)=>{
+         const newArr=[...productImages,fileID];
+         setProductImages(newArr);
+         console.log(newArr);
+         setProductImage([]);
+      })
+      .catch((error)=>{
+          console.log(error);
+      })
+  
+  setProductImage([]);
+
+}
 
 
 
@@ -136,7 +173,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"/>
         {
             images.map((img,index)=>(
                 <SwiperSlide navigation={false} key={index}>
-                    <img src={img} alt="" />
+                    <img src={img} className="w-full h-[320px]" alt="" />
                 </SwiperSlide>
             ))
         }
@@ -203,6 +240,11 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"/>
        
        <Services />
 
+       {/* Display One Review Randomly */}
+       <ProductReviewSection reviews={reviews} />
+
+
+
 
 
 
@@ -247,6 +289,14 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"/>
      )
 
       }) }
+
+<label htmlFor="images">Upload Product Images</label>     
+        
+        <div className="flex gap-8 items-center">
+
+        <input className="w-52" type="file" accept="image/png ,  ,image/jpg ,image/webp , image/jpeg, image/gif"  onChange={e=>setProductImage(e.target.files[0])} />
+              <button type="button" onClick={addImage} className="bg-red-600 w-14 h-14 rounded-full text-3xl  hover:bg-red-500 text-white">+</button>     
+        </div>
 
 
         </>
