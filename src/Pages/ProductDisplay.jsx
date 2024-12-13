@@ -264,7 +264,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"/>
 
 
 
-     <div className="mt-32">
+     <div className="mt-96">
 
       <input type="text" value={inputReview} placeholder="Review...." onChange={e=>setInputReview(e.target.value)} className="border-2 border-black" />
       <input type="number" value={inputReviewStars} placeholder="Review...." onChange={e=>setInputReviewStart(e.target.value)} className="border-2 border-black" />
