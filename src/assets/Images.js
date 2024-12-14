@@ -19,6 +19,10 @@ import revenue from '../assets/revenue.png'
 import orders from '../assets/orders.png'
 import settings from '../assets/settings.png'
 import iconLeft from '../assets/iconLeft.png'
+import backIconQA from '../assets/backIconQA.png'
+import questionIcon from '../assets/questionIcon.png'
+import answerIcon from '../assets/answerIcon.png'
+
 
 
 
@@ -50,7 +54,10 @@ const images={
     revenue,
     orders,
     settings,
-    iconLeft
+    iconLeft,
+    backIconQA,
+    questionIcon,
+    answerIcon
 }
 
 export default images;

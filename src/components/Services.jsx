@@ -2,8 +2,8 @@ function Services() {
   return (
     <>
       <p className="border  border-opacity-85 "></p>
-      <div className="flex gap-9 py-4 bg-white" >
-        <p className="self-start  opacity-65 tracking-wide ml-2 text-[15px]">Service</p>
+      <div className="flex gap-9 p-4 bg-white" >
+        <p className="self-start  opacity-65 tracking-wide text-[15px]">Service</p>
         <div>
           <div>
             <div className="flex items-center gap-1" > 

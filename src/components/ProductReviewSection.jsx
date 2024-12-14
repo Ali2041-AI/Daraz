@@ -8,7 +8,7 @@ function ProductReviewSection({reviews}){
 
        const randomIndex = Math.floor(Math.random() * reviews.length);
        const randomReview=reviews[randomIndex];
-      console.log("This is the random Reviewe: ", randomReview);
+    //   console.log("This is the random Reviewe: ", randomReview);
 
     
 
@@ -30,7 +30,7 @@ const formattedDate = `${day} ${month} ${year}`;
     return(
 
         <>
-       <div className="bg-white mt-2 p-3" >
+       <div className="bg-white mt-2 p-4" >
         <p className="self-start text-sm opacity-65 tracking-wide mb-6"  >Rating and Reviews ({reviews.length})</p>
 
         {reviews.length===0

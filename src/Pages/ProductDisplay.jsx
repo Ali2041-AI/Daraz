@@ -13,6 +13,7 @@ import { setProducts } from "../store/darazSlice";
 import Delivery from "../components/Delivery";
 import Services from "../components/Services";
 import ProductReviewSection from "../components/ProductReviewSection";
+import QnaPreviewSection from "../components/QnaPreviewSection";
 
 function ProductDisplay(){
 
@@ -32,7 +33,7 @@ function ProductDisplay(){
     const [productImages,setProductImages]=useState([]);
     const [imageCount,setImageCount]=useState(1);
 
-    console.log(`Here is the product: `,product);
+    // console.log(`Here is the product: `,product);
 
 
     const {loading,setLoading}=useState(true);
@@ -60,7 +61,7 @@ function ProductDisplay(){
             });
             setImages(arr);
             // setLoading(false);
-            console.log(`Here is the Product ID: `,productID);
+            // console.log(`Here is the Product ID: `,productID);
             sellerAccountService.getReviewData(productID)
             .then((res)=>{
               if(res.total>0){
@@ -82,7 +83,7 @@ function ProductDisplay(){
       const reviewImages=productImages;
       sellerAccountService.createReview({name:userName,productID,userID,reviewText,reviewStars,reviewImages})
       .then((res)=>{
-        console.log(res);
+        // console.log(res);
       })
       .catch((error)=>{
         console.log(error);
@@ -116,7 +117,7 @@ function ProductDisplay(){
       .then((fileID)=>{
          const newArr=[...productImages,fileID];
          setProductImages(newArr);
-         console.log(newArr);
+        //  console.log(newArr);
          setProductImage([]);
       })
       .catch((error)=>{
@@ -242,6 +243,12 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"/>
 
        {/* Display One Review Randomly */}
        <ProductReviewSection reviews={reviews} />
+
+
+       {/* QNA */}
+
+       <QnaPreviewSection  productID={productID} />
+
 
 
 

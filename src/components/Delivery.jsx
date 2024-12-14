@@ -35,7 +35,7 @@ function Delivery({productID}){
     return(
         <>
 
-       <div className="bg-white cursor-pointer mt-2 py-2 pl-2"  onClick={()=>navigate(`/addressPage?productID=${productID}`)} >
+       <div className="bg-white cursor-pointer mt-2 p-4"  onClick={()=>navigate(`/addressPage?productID=${productID}`)} >
 
         <div className="flex gap-8 items-center" >
             <span className="self-start text-sm opacity-65 tracking-wide" >Delivery</span>

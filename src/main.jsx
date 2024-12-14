@@ -19,6 +19,7 @@ import SearchedProducts from './Pages/SearchedProducts.jsx'
 import ProductDisplay from './Pages/ProductDisplay.jsx'
 import AddressPage from './Pages/AddressPage.jsx'
 import AddressForm from './components/AddressForm.jsx'
+import ProductQna from './Pages/ProductQnaPage.jsx'
 // import AddressPage from './Pages/AddressPage.jsx'
 
 
@@ -38,6 +39,10 @@ const route=createBrowserRouter([
       path:'/productDisplay/:productID',
       element:<ProductDisplay />
 
+    },
+    {
+      path:'/product-qna/:productID',
+      element:<ProductQna />
     },
     {
       path:'/addressPage',
@@ -87,6 +92,7 @@ const route=createBrowserRouter([
           ]
 
         },
+       
 
 
       ] 

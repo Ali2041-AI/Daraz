@@ -254,6 +254,74 @@ class Seller{
 
     }
 
+
+    async sendProductQuerie({productID,storeID,userID,querie,customerName,messageSeenStatus,replySeenStatus}){
+        const querieID=ID.unique();
+        try {
+            const res=await this.databases.createDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_PRODUCTQUERIEID,
+                querieID,
+                {
+                    productID,
+                    storeID,
+                    userID,
+                    customerName,
+                    querie,
+                    messageSeenStatus,
+                    replySeenStatus
+                }
+
+            )
+            return res;
+            
+        } catch (error) {
+            throw("SENDING PRODUCT QUERIE :: APPWRITE ::ERROR ",error.message)
+
+            
+        }
+
+    }
+
+
+    async getProductQueries(attribute,ID){
+        try {
+            const productData=await this.databases.listDocuments(
+                env.APPWRITE_DB,
+                env.APPWRITE_PRODUCTQUERIEID,
+                [
+                    Query.equal(attribute,ID)
+                ]
+            )
+           return productData;
+            
+        } catch (error) {
+            throw("GET PRODUCT QUERIES  :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
+
+    async sendCustomerQuerieReply(querieID,reply){
+        try {
+            const response=await this.databases.updateDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_PRODUCTQUERIEID,
+                querieID,
+                {
+                    reply
+                }
+            )
+           return response;
+            
+        } catch (error) {
+            throw("UPDATE QUERIE REPLY DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
+
+   
     getImagePreview(featuredImageID){
         try {
             const Image=this.storage.getFilePreview(
