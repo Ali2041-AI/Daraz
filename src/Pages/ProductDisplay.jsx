@@ -34,7 +34,8 @@ function ProductDisplay(){
     const [selectedSize,setSelectedSize]=useState("");
 
     const [error,setError]=useState(false);
-    const [errorMessage,setErrorMessage]=useState("");
+    const [statusMessage,setStatusMessage]=useState("");
+    const [actionMessage,setActionMessage]=useState("");
 
 
     const [imageLimitError,setImageLimitError]=useState(false); 
@@ -157,12 +158,7 @@ function ProductDisplay(){
 const addProductToCart=()=>{
 
   if(!userID){
-    setError(true)
-    setErrorMessage("Log in first!!");
-
-    setTimeout(()=>{
-     setError(false);
-    },3000)
+   statusSetter("Log in first!!","Go To Log in");
   }
   else{
 
@@ -184,6 +180,8 @@ const addProductToCart=()=>{
          sellerAccountService.addProductToCart({userID,products})
          .then((res)=>{
           console.log(res);
+          statusSetter("Successfully added to cart","Go To Cart")
+
          })
          
       }
@@ -199,6 +197,7 @@ const addProductToCart=()=>{
           sellerAccountService.updateCartProductData({cartID:cartData?.$id,products})
           .then((res)=>{
             console.log(res)
+            statusSetter("Successfully added to cart","Go To Cart")
           })
           .catch((error)=>{
             console.log(error);
@@ -206,12 +205,7 @@ const addProductToCart=()=>{
         }
         else{
 
-          setError(true);
-          setErrorMessage("Already in the cart!!");
-
-          setTimeout(()=>{
-            setError(false);
-          },3000)
+         statusSetter("Already in the cart!!","Go To Cart")
 
         }
 
@@ -230,6 +224,26 @@ const addProductToCart=()=>{
 
 }
 
+const statusSetter=(message,actionMessage)=>{
+  setError(true);
+  setStatusMessage(message);
+  setActionMessage(actionMessage);
+
+  setTimeout(()=>{
+    setError(false);
+  },3000)
+}
+
+
+ const handleNavigation=()=>{
+     if(!userID){
+      navigate('/account/loginSignup')
+     }
+     else{
+      navigate("/cart")
+     }
+
+ }
 
 
 
@@ -376,10 +390,19 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z" />
 
        <Description Description={product?.description} productImages={images} />
 
-      <p className={`Errors fixed bottom-12 left-[50%] text-center text-sm -translate-x-[50%] tracking-wide  bg-gray-300  transition-all duration-1000 ${error?"opacity-100":"opacity-0"}  rounded-full px-6 tracking-wider py-1`}>{errorMessage}</p>
-      <div className="fixed bottom-0  w-full bg-white text-white" >
+       {/*        */}
+      
+
+       <div className={`section-area fixed bottom-9  transition-all duration-1000 ${error?"opacity-100  ":"opacity-0 "}  w-full flex justify-between  text-sm  p-3 bg-[#323232]  text-white      tracking-wider `}>
+          <p>{statusMessage}</p>
+          <button className="text-blue-600" onClick={handleNavigation} >{actionMessage}  </button>
+        </div>
+      <div className="fixed bottom-0   w-full bg-white text-white" >
+      
+        <div>
          <button className=" bg-gradient-to-tr from-[#47CEEE] to-[#17A5DB] px-4 py-2 w-[50%] " >Buy Now</button>
          <button className=" bg-gradient-to-tr from-[#FF9E35] to-[#FF6A03] px-4 py-2 w-[50%] " onClick={addProductToCart} >Add to Cart</button>
+        </div>
       </div>
 
 
