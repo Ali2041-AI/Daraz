@@ -376,7 +376,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z" />
 
        <Description Description={product?.description} productImages={images} />
 
-      <p className={`Errors fixed bottom-12 left-[50%] text-sm -translate-x-[50%] tracking-wide  bg-gray-300  transition-all duration-1000 ${error?"opacity-100":"opacity-0"}  rounded-full px-6 tracking-wider py-1`}>{errorMessage}</p>
+      <p className={`Errors fixed bottom-12 left-[50%] text-center text-sm -translate-x-[50%] tracking-wide  bg-gray-300  transition-all duration-1000 ${error?"opacity-100":"opacity-0"}  rounded-full px-6 tracking-wider py-1`}>{errorMessage}</p>
       <div className="fixed bottom-0  w-full bg-white text-white" >
          <button className=" bg-gradient-to-tr from-[#47CEEE] to-[#17A5DB] px-4 py-2 w-[50%] " >Buy Now</button>
          <button className=" bg-gradient-to-tr from-[#FF9E35] to-[#FF6A03] px-4 py-2 w-[50%] " onClick={addProductToCart} >Add to Cart</button>
