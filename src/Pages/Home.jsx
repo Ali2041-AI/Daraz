@@ -86,7 +86,7 @@ function Home(){
                 <p className="text-[10px] opacity-70">Categories</p>
 
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center" onClick={()=>navigate('/cart')}>
                 <img src={images.cart} className="w-6" alt="" />
                 <p className="text-[10px] opacity-70">Cart</p>
             </div>

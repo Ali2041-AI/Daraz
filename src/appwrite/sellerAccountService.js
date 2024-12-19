@@ -86,7 +86,7 @@ class Seller{
                 addressID,
                 {
                     userID,
-                      address
+                    address
                 }
 
                 
@@ -135,6 +135,62 @@ class Seller{
 
     }
 
+
+    async addProductToCart({userID,products}){
+        try {
+            const cartID=ID.unique();
+            const data=await this.databases.createDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_CARTID,
+                cartID,
+                {
+                    userID,
+                    products
+                }
+            )
+            return data;
+            
+        } catch (error) {
+            throw("CART ADDITION ERROR: APPWRITE ::ERROR ",error.message);
+        }
+    }
+
+    async getCartProductData(userID){
+        console.log(userID)
+        try {
+            const cartProductData=await this.databases.listDocuments(
+                env.APPWRITE_DB,
+                env.APPWRITE_CARTID,
+                [
+                    Query.equal('userID',userID)
+                ]
+            )
+           return cartProductData;
+            
+        } catch (error) {
+            throw("GET CART PRODUCTS DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
+
+    async updateCartProductData({cartID,products}){
+        try {
+            const response=await this.databases.updateDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_CARTID,
+                cartID,
+                {
+                    products
+                }
+            )
+           return response;
+            
+        } catch (error) {
+            throw("UPDATE CART DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
 
 
 

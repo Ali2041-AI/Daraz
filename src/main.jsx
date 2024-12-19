@@ -20,6 +20,7 @@ import ProductDisplay from './Pages/ProductDisplay.jsx'
 import AddressPage from './Pages/AddressPage.jsx'
 import AddressForm from './components/AddressForm.jsx'
 import ProductQna from './Pages/ProductQnaPage.jsx'
+import CartPage from './Pages/CartPage.jsx'
 // import AddressPage from './Pages/AddressPage.jsx'
 
 
@@ -53,6 +54,10 @@ const route=createBrowserRouter([
           element:<AddressForm />
         }
       ]
+    },
+    {
+      path:'/cart',
+      element:<CartPage />
     },
     {
       path:'/account',
