@@ -393,7 +393,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z" />
        {/*        */}
       
 
-       <div className={`section-area fixed bottom-9  transition-all duration-1000 ${error?"opacity-100  ":"opacity-0 "}  w-full flex justify-between  text-sm  p-3 bg-[#323232]  text-white      tracking-wider `}>
+       <div className={`section-area fixed bottom-9  transition-all duration-1000 ${error?"opacity-100  ":"opacity-0 "}  w-full flex justify-between  text-sm  p-4 bg-[#323232]  text-white      tracking-wider `}>
           <p>{statusMessage}</p>
           <button className="text-blue-600" onClick={handleNavigation} >{actionMessage}  </button>
         </div>
