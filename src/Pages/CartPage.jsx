@@ -1,16 +1,38 @@
 import { useNavigate } from "react-router";
 import images from "../assets/Images";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import sellerAccountService from "../appwrite/sellerAccountService";
 
 function CartPage(){
 
     const navigate=useNavigate();
     const userData=useSelector((state)=>state.userData)?.userData;
+
+    const [cartProducts,setCartProducts]=useState([]);
     const [total,setTotal]=useState(0);
+    console.log(cartProducts);
     const [savedAmount,setSavedAmount]=useState(0);
     const [selectedProducts,setSelectedProducts]=useState([]);
     console.log(userData)
+
+
+
+    useEffect(()=>{
+     
+        sellerAccountService.getCartProductData(userData?.$id)
+        .then((res)=>{
+            if(res.total>0)
+            setCartProducts(res.documents[0]);
+        })
+
+
+    }
+    ,[]
+)
+
+
+
 
 
 

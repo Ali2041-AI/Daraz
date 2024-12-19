@@ -289,6 +289,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z" />
 
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        onClick={()=>navigate("/cart")}
         className="z-50 bg-opacity-70 bg-gray-800 mt-2 mr-2 rounded-full px-2 py-2 fixed right-0 "
         fill="#ffffffd9"
         x="0px"
