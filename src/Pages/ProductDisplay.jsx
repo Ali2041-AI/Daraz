@@ -194,6 +194,7 @@ const addProductToCart=()=>{
         if(!isProductInCart){
            Array.isArray(cartProductArray) && cartProductArray.push(newProduct);
           const products=cartProductArray.map((item)=>JSON.stringify(item));
+          console.log(products);
           sellerAccountService.updateCartProductData({cartID:cartData?.$id,products})
           .then((res)=>{
             console.log(res)

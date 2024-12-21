@@ -156,7 +156,7 @@ class Seller{
     }
 
     async getCartProductData(userID){
-        console.log(userID)
+        console.log("this is the userID pased: ",userID)
         try {
             const cartProductData=await this.databases.listDocuments(
                 env.APPWRITE_DB,
@@ -192,6 +192,21 @@ class Seller{
 
     }
 
+
+    async deleteCart(cartID){
+        try {
+            const response=await this.databases.deleteDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_CARTID,
+                cartID,
+            )
+           return response;
+            
+        } catch (error) {
+            throw("DELETE CART  :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
 
 
     async getSellerData(userID){
@@ -438,6 +453,8 @@ class Seller{
 
 
     async getProductData(productID=null){
+
+        console.log(productID);
 
         try {
             const productData=await this.databases.listDocuments(
