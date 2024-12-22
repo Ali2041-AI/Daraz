@@ -15,6 +15,8 @@ function AddressPage() {
   const dispatch=useDispatch();
 
   const location = useLocation();
+
+  const { selectedProducts, total,savedAmount } = location.state || {};
   const navigate = useNavigate();
   
 
@@ -53,7 +55,7 @@ function AddressPage() {
   
   const goBackHanlder=()=>{
     if(!productID){
-      navigate('/checkout');
+      navigate('/checkout',{state:{selectedProducts, total,savedAmount}});
     }
     else{
       navigate(`/productDisplay/${productID}`)

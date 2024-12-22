@@ -8,7 +8,7 @@ function CheckoutPage(){
     const navigate=useNavigate();
     const location=useLocation();
     
-    const { selectedProducts, total } = location.state || {};
+    const { selectedProducts, total,savedAmount } = location.state || {};
 
     
   //creating daraz checkout page
@@ -67,7 +67,7 @@ function CheckoutPage(){
                     </div>
                     <div className="flex justify-between w-full  items-center">
                         <p className="text-sm opacity-55" >{defaultAddress[0]?.completeAddress}</p>
-                        <img className="w-6" onClick={()=>navigate(`/addressPage`)} src={images.iconLeft} alt="" />
+                        <img className="w-6" onClick={()=>navigate(`/addressPage`,{state:{selectedProducts:selectedProducts,total,savedAmount}})} src={images.iconLeft} alt="" />
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@ function CheckoutPage(){
 
           {/* bill total area */}
 
-            <div className="flex gap-4  p-4 bg-white mt-2" >
+            <div className="flex gap-4 mb-16 p-4 bg-white mt-2" >
                 <div className="flex w-full flex-col gap-2" >
                     <div className="flex justify-between" >
                         <p className="font-bold" >Subtotal</p>
@@ -115,7 +115,7 @@ function CheckoutPage(){
 
 
 
-         <div className="footer-area flex justify-end rounded-md  w-full p-4 items-end fixed bottom-0 bg-white ">
+         <div className="footer-area flex justify-end rounded-md   w-full p-4 items-end fixed bottom-0 bg-white ">
              
                 
                 <div className="flex   " >
@@ -129,7 +129,7 @@ function CheckoutPage(){
                             <p className="text-[#FE4860] text-[10px] mr-2">Rs.{300}</p>
                         </div>
                     </div>
-                    <button onClick={handleNavigate}  className="bg-[#F85606] text-white font-semibold rounded-md px-2 py-1" >Place Order({selectedProducts.length})</button>
+                    <button onClick={handleNavigate}  className="bg-[#F85606] text-white font-semibold rounded-md px-2 py-1" >Place Order({selectedProducts?.length})</button>
                 </div>
 
             </div>
