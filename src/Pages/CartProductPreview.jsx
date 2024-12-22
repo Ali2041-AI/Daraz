@@ -8,14 +8,13 @@ function CartProductPreview({product,updateQuantity}){
     const handleDecrementQuantity=()=>{
         setProduct({...products,quantity:products.quantity-1})
         updateQuantity(products?.$id,products?.quantity-1);
-
     }
  
     const hanldeIncrementQuantity=()=>{
         setProduct({...products,quantity:products.quantity+1})
-        updateQuantity(products?.$id,products?.quantity+1);
-     
+        updateQuantity(products?.$id,products?.quantity+1)
     }
+    
  
  
 
@@ -31,8 +30,8 @@ function CartProductPreview({product,updateQuantity}){
                  </p>
                  <div className="price-section flex justify-between  w-full">
                     <div>
-                        <p className="text-[#FE4860] font-bold" >Rs. {products?.price}</p>
-                        <p className="text-gray-600 line-through text-sm " >Rs. {products?.discountedPrice}</p>
+                        <p className="text-[#FE4860] font-bold" >Rs. {products?.discountedPrice}</p>
+                        <p className="text-gray-600 line-through text-sm " >Rs. {products?.price}</p>
                     </div>
                     <div className="flex items-center space-x-4 bg-gray-50 p-2 rounded-md">
                                     

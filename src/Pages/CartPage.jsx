@@ -89,9 +89,9 @@ useEffect(()=>{
     selectedProducts.forEach((product)=>{
         const matchedProduct=productsData.find((item)=>item.$id===product?.productID);
         if(matchedProduct){
-            tempSum=matchedProduct?.price;
+            tempSum=matchedProduct?.discountedPrice;
             tempSum=tempSum*product?.quantity;
-            tempSaved=matchedProduct?.discountedPrice;
+            tempSaved=matchedProduct?.price;
             tempSaved=tempSaved*product?.quantity;
         }
         sum+=tempSum;
@@ -100,7 +100,7 @@ useEffect(()=>{
         tempSaved=0;
     })
 
-    setSavedAmount(savedAmount);
+    setSavedAmount(savedAmount-sum);
     setTotal(sum);
 
 
@@ -213,14 +213,19 @@ useEffect(()=>{
 
     }
 
-
-    
-
-
-
-
   }
 
+  const handleNavigate=()=>{
+     const selectedDataProducts=selectedProducts.map((item)=>{
+         const matchedProduct=productsData.find((product)=>product.$id===item.productID);
+         return matchedProduct?{...matchedProduct,quantity:item.quantity}:null;
+     }
+        ).filter((item)=>item!==null);
+        if(selectedDataProducts.length>0){
+            navigate("/checkout",{state:{selectedProducts:selectedDataProducts,total}});
+        }
+        
+  }
 
    
 
@@ -295,7 +300,7 @@ useEffect(()=>{
                             <p className="text-[#FE4860] text-[10px] mr-2">Rs.{savedAmount}</p>
                         </div>
                     </div>
-                    <button className="bg-[#F85606] text-white font-semibold rounded-md px-2 py-1" >Check out({selectedProducts.length})</button>
+                    <button onClick={handleNavigate}  className="bg-[#F85606] text-white font-semibold rounded-md px-2 py-1" >Check out({selectedProducts.length})</button>
                 </div>
 
             </div>

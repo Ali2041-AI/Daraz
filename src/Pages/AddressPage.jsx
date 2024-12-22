@@ -50,6 +50,15 @@ function AddressPage() {
       console.log(gotData);
       dispatch(setUserAddresses({...gotData})); 
   };
+  
+  const goBackHanlder=()=>{
+    if(!productID){
+      navigate('/checkout');
+    }
+    else{
+      navigate(`/productDisplay/${productID}`)
+    }
+  }
 
   return (
     <>
@@ -60,7 +69,7 @@ function AddressPage() {
           {userID ? (
             <div>
             <div className="flex items-center p-3 gap-3 ">
-               <img src={images.backIcon} className="w-4 " onClick={()=>navigate(`/productDisplay/${productID}`)} />
+               <img src={images.backIcon} className="w-4 " onClick={goBackHanlder} />
                <h2 className="text-lg font-bold">Select Your Address</h2>  
             </div>    
               <div className="space-y-4">

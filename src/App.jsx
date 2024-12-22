@@ -33,6 +33,7 @@ function App() {
         sellerAccountService.getAddressData(userID)
        .then((res)=>{
         if(res.total>0){
+          console.log("here is the user adddress data", res)
          dispatch(setUserAddresses({...res.documents[0]}));
         }
        })

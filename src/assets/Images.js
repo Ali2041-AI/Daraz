@@ -22,6 +22,7 @@ import iconLeft from '../assets/iconLeft.png'
 import backIconQA from '../assets/backIconQA.png'
 import questionIcon from '../assets/questionIcon.png'
 import answerIcon from '../assets/answerIcon.png'
+import addressIcon from '../assets/addressIcon.png'
 
 
 
@@ -57,7 +58,8 @@ const images={
     iconLeft,
     backIconQA,
     questionIcon,
-    answerIcon
+    answerIcon,
+    addressIcon
 }
 
 export default images;
