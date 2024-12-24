@@ -28,7 +28,7 @@ function ProductPreview({products}){
               {/* Product content */}
               <img  src={sellerAccountService.getImagePreview(product.productImages[0])} alt={product.name} className="w-full h-40" />
              <div className="px-2 py-1">
-                <h2 className="text-sm  mt-2">{product.productTitle}</h2>
+                <h2 className="text-sm  mt-2 truncate-text">{product.productTitle}</h2>
                 <p className="text-[#fe4960] text-sm mb-1">Rs.{product.price}</p>
                 <div className="flex gap-2"><svg className="star w-2"  viewBox="0 0 18 18" id="ic-star" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M9.00003 14.7625L13.0717 17.364C13.8221 17.8434 14.7778 17.1767 14.5868 16.3068L13.4891 11.3073L17.2126 7.88892C17.852 7.30194 17.4913 6.23496 16.6269 6.15638L11.7745 5.71529L9.92848 1.10135C9.59318 0.263304 8.40688 0.263303 8.07158 1.10135L6.22558 5.71529L1.37319 6.15638C0.508787 6.23496 0.148054 7.30194 0.787438 7.88892L4.51094 11.3073L3.41325 16.3068C3.22227 17.1767 4.17793 17.8434 4.92839 17.364L9.00003 14.7625Z" fill="#FFC83C"></path></svg>
                 <p className="text-[11px]">
