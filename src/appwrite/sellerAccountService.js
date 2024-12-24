@@ -285,6 +285,7 @@ class Seller{
     }
     
     async addImage(file){
+        console.log(file);
         try {
             const response=await this.storage.createFile(
                 env.APPWRITE_STORAGEID,
@@ -457,6 +458,20 @@ class Seller{
             throw error;
         }
 
+    }
+
+    deleteImage(imageID){
+        try {
+            const response=this.storage.deleteFile(
+                env.APPWRITE_STORAGEID,
+                imageID
+            )
+            return response;
+            
+        }
+        catch (error) {
+            throw error;
+        }
     }
 
     async createNewProduct({productTitle,discountedPrice,sold,stock,colors,

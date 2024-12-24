@@ -51,15 +51,22 @@ function CheckoutPage(){
                 const orderAddress=JSON.stringify(defaultAddress[0]);
                 const orderDate=new Date().toDateString();
                 sellerAccountService.createOrder({userID,productID,quantity,orderStatus,storeID,orderAddress,orderDate})
-                .then((res)=>{  console.log(res)  })
+                .then((res)=>{  
+                    navigate('/orders');
+                  })
                 .catch((error)=>{console.log(error)})
 
              } )}
 
              //now remove all the products from cart
 
+
+
              removeSelectedProductsFromCart();
-                navigate('/orders');
+
+           
+                
+      
 
         }
     }
@@ -90,9 +97,10 @@ const removeSelectedProductsFromCart=()=>{
             }
         }
     })
+}
 
-
-
+const navigateToOrders=()=>{
+    navigate('/orders');
 }
 
  

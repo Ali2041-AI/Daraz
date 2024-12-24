@@ -10,7 +10,8 @@ function Orders(){
 
 
     const navigate=useNavigate();
-    const userData=useSelector((state)=>state.userData?.userData);
+    const userData=useSelector((state)=>state.userData)?.userData;
+    console.log("here is the user Data: ", userData)
     const [orders,setOrders]=useState([]);
     const [orderProductsData,setOrderProductsData]=useState([]);
     const [erros,setErrors]=useState(null);
@@ -18,6 +19,7 @@ function Orders(){
 
     useEffect(()=>{ 
 
+        console.log(userData);
         if(!userData){
             setErrors("Please Login First");
         }
@@ -47,6 +49,7 @@ function Orders(){
                     })
 
                     setOrderProductsData(updatedOrderProductsData);
+                    setErrors("");
 
 
                     console.log(updatedOrderProductsData);
@@ -65,7 +68,7 @@ function Orders(){
         )
     }
 
-    },[])
+    },[userData])
     
 
 

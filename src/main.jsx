@@ -23,6 +23,7 @@ import ProductQna from './Pages/ProductQnaPage.jsx'
 import CartPage from './Pages/CartPage.jsx'
 import CheckoutPage from './Pages/CheckoutPage.jsx'
 import Orders from './Pages/Orders.jsx'
+import Review from './Pages/Review.jsx'
 // import AddressPage from './Pages/AddressPage.jsx'
 
 
@@ -56,6 +57,11 @@ const route=createBrowserRouter([
           element:<AddressForm />
         }
       ]
+    },
+    {
+      path:"/review/:productID",
+      element:<Review />
+
     },
     {
       path:'/cart',

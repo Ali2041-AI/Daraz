@@ -1,5 +1,9 @@
+import { useNavigate } from "react-router";
 import sellerAccountService from "../appwrite/sellerAccountService";
 function Product({product,orderDisplay}){
+
+
+    const navigate=useNavigate();
 
 
 
@@ -19,7 +23,7 @@ function Product({product,orderDisplay}){
                             <p className="text-[#F85606] font-bold" >Rs. {product.discountedPrice}</p>
                             <p className={`  text-sm text-gray-500 font-bold`}      >Qty: {product.quantity}</p>
                         </div>
-                        <button className={`text-center ${product?.orderStatus!=="delivered"?"hidden":""} bg-[#F85606] text-white rounded-lg py-1`} >WRTIE A REVIEW</button>
+                        <button onClick={()=>navigate(`/review/${product?.$id}`)} className={`text-center  bg-[#F85606] text-white rounded-lg py-1`} >WRTIE A REVIEW</button>
                         {/* Shipping fee for each product */}
                         <div className="flex justify-between text-sm" >
                         <p className={`font-bold ${orderDisplay?"hidden":""} `} >Shipping fee </p>

@@ -11,19 +11,20 @@ function CartPage(){
     const navigate=useNavigate();
     const userData=useSelector((state)=>state.userData)?.userData;
 
-    console.log(userData);
+    console.log(userData)
+
     //all data including cartID etc
     const [cartProductsData,setCartProductsData]=useState([]);
 
     //only products data ID,Quantity
     const [cartProductArray,setCartProuctArray]=useState([]);
     // console.log(cartProductArray);
-    console.log("This is what i have to see: " , cartProductArray);
+    // console.log("This is what i have to see: " , cartProductArray);
 
     //complete Product Data fetched through IDS
      
     const [productsData,setProductsData]=useState([]);
-    console.log(productsData);
+    // console.log(productsData);
 
 
     const [total,setTotal]=useState(0);
@@ -32,7 +33,7 @@ function CartPage(){
     const [savedAmount,setSavedAmount]=useState(0);
     const [selectedProducts,setSelectedProducts]=useState([]);
 
-    console.log("these are the selected Products: ", selectedProducts);
+    // console.log("these are the selected Products: ", selectedProducts);
     const [allCheckbox,setAllCheckbox]=useState(false);
 
 
@@ -42,17 +43,17 @@ function CartPage(){
         sellerAccountService.getCartProductData(userData?.$id)
         .then((res)=>{
             if(res.total>0){
-                console.log(res);
+                // console.log(res);
             setCartProductsData(res.documents[0]);
             //Stringify data to JSON
             const JSONProducts=StringifyToJsonArrayConverter(res.documents[0]?.products);
             setCartProuctArray(JSONProducts)
-            console.log(JSONProducts);
+            // console.log(JSONProducts);
 
             //IDS from product Data
             const onlyProductIDS=JSONProducts.map((item)=>item.productID);
             //fetch all the product with these IDS
-            console.log("These are the only product IDS: ", onlyProductIDS);
+            // console.log("These are the only product IDS: ", onlyProductIDS);
             sellerAccountService.getProductData(onlyProductIDS)
             .then((res)=>{
                  
@@ -74,7 +75,7 @@ function CartPage(){
 
 
     }
-    ,[]
+    ,[userData]
 )
 
 useEffect(()=>{
