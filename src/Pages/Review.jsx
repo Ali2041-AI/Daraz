@@ -67,8 +67,9 @@ function Review() {
         }
         else{
             setLoading(false);
+            setLoading(false);
         }
-
+      //a
         // Add logic to submit the review
     };
 
