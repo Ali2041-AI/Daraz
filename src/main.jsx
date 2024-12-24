@@ -22,6 +22,7 @@ import AddressForm from './components/AddressForm.jsx'
 import ProductQna from './Pages/ProductQnaPage.jsx'
 import CartPage from './Pages/CartPage.jsx'
 import CheckoutPage from './Pages/CheckoutPage.jsx'
+import Orders from './Pages/Orders.jsx'
 // import AddressPage from './Pages/AddressPage.jsx'
 
 
@@ -63,6 +64,10 @@ const route=createBrowserRouter([
     {
       path:'/checkout',
       element:<CheckoutPage />
+    },
+    {
+      path:'orders',
+      element:<Orders />
     },
     {
       path:'/account',

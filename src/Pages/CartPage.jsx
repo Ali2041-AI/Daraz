@@ -222,7 +222,7 @@ useEffect(()=>{
      }
         ).filter((item)=>item!==null);
         if(selectedDataProducts.length>0){
-            navigate("/checkout",{state:{selectedProducts:selectedDataProducts,total}});
+            navigate("/checkout",{state:{selectedProducts:selectedDataProducts,total,savedAmount}});
         }
         
   }
@@ -237,7 +237,7 @@ useEffect(()=>{
         <div className="bg-[#f5f5f5] min-h-screen" >
 
          <div className="nav-area">
-            <div className="flex bg-white fixed border-b w-full p-2 items-center justify-between gap-4" >
+            <div className="flex bg-white fixed z-10 border-b w-full p-2 items-center justify-between gap-4" >
                 <div className="flex items-center gap-4" >
                     <img src={images.backIcon} className="w-5  font-bold" alt="" onClick={()=>navigate("/")} />
                     <p className="font-bold mt-1">My Cart</p>

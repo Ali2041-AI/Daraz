@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import sellerAccountService from "../appwrite/sellerAccountService";
+import Product from "../components/Product";
+import store from "../store/store";
 function CheckoutPage(){
 
     const navigate=useNavigate();
     const location=useLocation();
     
-    const { selectedProducts, total,savedAmount } = location.state || {};
+    let { selectedProducts, total,savedAmount } = location.state || {};
+
+    console.log("These are the selected Products: ", selectedProducts)
 
     
   //creating daraz checkout page
@@ -25,10 +29,73 @@ function CheckoutPage(){
   }).filter(address => address !== null);
   const defaultAddress=Array.isArray(parsedAddresses) ? parsedAddresses.filter((address) => address.default) : [];
 
-  const handleNavigate=()=>{
+  const handleOrder=()=>{
+    //first check if user is logged in
+    if(userData===null){
+        navigate('/account/loginSignup');
+    }
+    else{
+        //if user is logged in then check if user has default address
+        if(defaultAddress.length===0){
+            navigate('/addressPage',{state:{selectedProducts:selectedProducts,total,savedAmount}});
+        }
+        else{
+            //if user has default address then place order  
+             // add one product in order one by one using loop
+             const userID=userData.$id;
+             {Array.isArray(selectedProducts) && selectedProducts.map((product,index)=>{
+                const productID=product?.$id;
+                const quantity=product?.quantity;
+                const orderStatus="processing";
+                const storeID=product?.storeID;
+                const orderAddress=JSON.stringify(defaultAddress[0]);
+                const orderDate=new Date().toDateString();
+                sellerAccountService.createOrder({userID,productID,quantity,orderStatus,storeID,orderAddress,orderDate})
+                .then((res)=>{  console.log(res)  })
+                .catch((error)=>{console.log(error)})
+
+             } )}
+
+             //now remove all the products from cart
+
+             removeSelectedProductsFromCart();
+                navigate('/orders');
+
+        }
+    }
+}
+
+             
+const removeSelectedProductsFromCart=()=>{
+    sellerAccountService.getCartProductData(userData.$id)
+    .then((res)=>{
+        if(res.total>0){
+            const productsInCart= Array.isArray(res.documents[0]?.products) && res.documents[0]?.products?.map((product)=>JSON.parse(product));
+            //now match the selected Products ID with the productsInCart ID and remove the matched products from cart
+            const updatedProductsInCart=productsInCart.filter((product)=>{
+
+              const matchedProduct=selectedProducts.find((item)=>item?.$id===product.productID);
+
+              if(!matchedProduct){
+                return product;
+              }
+            })
+
+            if(updatedProductsInCart.length===0){
+                sellerAccountService.deleteCart(res.documents[0].$id)
+            }
+            else{
+                const updatedProductsInCartString=updatedProductsInCart.map((product)=>JSON.stringify(product));
+                sellerAccountService.updateCartProductData({cartID:res.documents[0].$id ,products:updatedProductsInCartString})
+            }
+        }
+    })
 
 
-  }
+
+}
+
+ 
 
 
 
@@ -36,7 +103,7 @@ function CheckoutPage(){
         <>
         <div className="bg-[#F0F1F6]  min-h-screen" >
             <div className="nav-area">
-                <div className="flex bg-white fixed border-b w-full p-2 items-center justify-between gap-4" >
+                <div className="flex bg-white z-10 fixed border-b w-full p-2 items-center justify-between gap-4" >
                     <div className="flex items-center gap-4" >
                         <img src={images.backIcon} className="w-5  font-bold" alt="" onClick={()=>navigate("/cart")} />
                         <p className="font-bold mt-1">Checkout</p>
@@ -77,16 +144,9 @@ function CheckoutPage(){
          <div className="mt-2">
 
             {Array.isArray(selectedProducts) && selectedProducts.map((product,index)=>(
-                <div key={index} className="flex gap-4 rounded-md p-4 mt-2 bg-white" >
-                    <img src={sellerAccountService.getImagePreview(product?.productImages[0])} className="min-w-0 w-32 h-28   rounded-lg" alt="" />
-                    <div className="flex flex-col gap-2 w-full" >
-                        <p className="font-bold truncate-text" >{product.productTitle}</p>
-                        <div className="flex justify-between items-center" >
-                            <p className="text-[#F85606] font-bold" >Rs. {product.discountedPrice}</p>
-                            <p className="text-sm text-gray-500 font-bold" >Qty: {product.quantity}</p>
-                        </div>
-                    </div>
-                </div>
+             <div key={index}>
+                <Product product={product} />
+             </div>
             ))}
 
 
@@ -102,11 +162,11 @@ function CheckoutPage(){
                     </div>
                     <div className="flex justify-between" >
                         <p className="font-bold" >Shipping</p>
-                        <p className="font-bold" >Rs.145</p>
+                        <p className="font-bold" >Rs.{145 *  selectedProducts?.length}</p>
                     </div>
                     <div className="flex justify-between" >
                         <p className="font-bold" >Total</p>
-                        <p className="font-bold" >Rs.{total+145}</p>
+                        <p className="font-bold" >Rs.{total+(145*selectedProducts?.length)}</p>
                     </div>
                 </div>
             </div>
@@ -122,14 +182,14 @@ function CheckoutPage(){
                     <div className="flex flex-col">
                         <div className="flex" >
                             <p className="font-bold mr-2 " >Total: </p>
-                            <p className="text-[#FE4860] font-bold mr-2" >Rs.{total+145}</p>
+                            <p className="text-[#FE4860] font-bold mr-2" >Rs.{total + (145* selectedProducts?.length)}</p>
                         </div>
                         <div className="flex self-end" >
                             <p className="text-[#FE4860] text-[10px] mr-2">Saved </p>
-                            <p className="text-[#FE4860] text-[10px] mr-2">Rs.{300}</p>
+                            <p className="text-[#FE4860] text-[10px] mr-2">Rs.{savedAmount}</p>
                         </div>
                     </div>
-                    <button onClick={handleNavigate}  className="bg-[#F85606] text-white font-semibold rounded-md px-2 py-1" >Place Order({selectedProducts?.length})</button>
+                    <button onClick={handleOrder}  className="bg-[#F85606] text-white font-semibold rounded-md px-2 py-1" >Place Order({selectedProducts?.length})</button>
                 </div>
 
             </div>

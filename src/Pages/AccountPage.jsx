@@ -4,7 +4,6 @@ import Images from '../assets/Images'
 import { useDispatch, useSelector } from 'react-redux';
 import authService from '../appwrite/authService';
 import { logInUser,logOutUser } from '../store/darazSlice';
-import store from '../store/store';
 
 function Account(){
 
@@ -87,7 +86,7 @@ function Account(){
                     <button onClick={() => handleLogInLogOut()}  className='text-white bg-[#F86306] rounded-md  px-2 py-2 '> {logInStatus?'LOGOUT':'LOGIN/SIGNUP'}   </button>
                     </div>
               </div>
-              <div className='opacity-90 py-2 mb-1 bg-white w-full tracking-wider text-[11px]'>
+              <div onClick={()=>navigate("/orders")} className='opacity-90 py-2 mb-1 bg-white w-full tracking-wider text-[11px]'>
                 <div className='w-[97%] mx-auto
                  flex gap-4 items-center'>
                     <img src={images.MyOrders} alt="" />

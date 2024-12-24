@@ -11,6 +11,7 @@ const env={
     APPWRITE_ADDRESSID:String(import.meta.env.VITE_APPWRITE_ADDRESSID),
     APPWRITE_PRODUCTQUERIEID:String(import.meta.env.VITE_APPWRITE_PRODUCTQUERIEID),
     APPWRITE_CARTID:String(import.meta.env.VITE_APPWRITE_CARTID),
+    APPWRITE_ORDERID:String(import.meta.env.VITE_APPWRITE_ORDERID),
 
 }
 

@@ -392,6 +392,57 @@ class Seller{
     }
 
 
+    async createOrder({userID,productID,quantity,orderStatus,storeID,orderAddress,orderDate}){
+
+        //  orderAddress=JSON.stringify(orderAddress);
+        const orderID=ID.unique();
+        try {
+            const res=await this.databases.createDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_ORDERID,
+                orderID,
+                {
+                    userID,
+                    productID,
+                    quantity,
+                    orderStatus,
+                    storeID,
+                    orderAddress,
+                    orderDate
+                }
+               
+
+            )
+            return res;
+            
+        } catch (error) {
+            throw("ORDER PRODUCT :: APPWRITE ::ERROR ",error.message)
+
+            
+        }
+    }
+
+
+    async getOrders(attribute,ID){
+
+        try {
+            const orders=await this.databases.listDocuments(
+                env.APPWRITE_DB,
+                env.APPWRITE_ORDERID,
+                [
+                        Query.equal(attribute,ID)
+                ]
+            )
+           return orders;
+            
+        } catch (error) {
+            throw("GET ORDER DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
+
+
    
     getImagePreview(featuredImageID){
         try {
