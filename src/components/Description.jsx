@@ -15,7 +15,7 @@ function Description({Description,productImages}){
             {Array.isArray(productImages) && productImages.map((item)=>{
             return(
 
-       <div className="image-section" key={item} >
+       <div className="image-section flex justify-center items-center"  key={item} >
                 <img src={item} alt=""  />
            </div>
 )
