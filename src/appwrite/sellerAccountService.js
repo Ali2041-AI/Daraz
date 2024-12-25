@@ -21,7 +21,6 @@ class Seller{
     async createSellerAccount({sellerName,sellerPhoneNo,address,cnic,userID}){
         try {
         const sellerID=ID.unique();
-        console.log(sellerID);
            const data=await  this.databases.createDocument(
             env.APPWRITE_DB,
             env.APPWRITE_SELLER_TABLE,
@@ -74,10 +73,6 @@ class Seller{
 
     async addAddress({userID,address}){
 
-        console.log(userID);
-        console.log(address);
-
-
         try {
             const addressID=ID.unique();
             const data=await this.databases.createDocument(
@@ -100,7 +95,7 @@ class Seller{
     }
 
     async getAddressData(userID){
-        console.log(userID)
+ 
         try {
             const addressData=await this.databases.listDocuments(
                 env.APPWRITE_DB,
@@ -156,7 +151,6 @@ class Seller{
     }
 
     async getCartProductData(userID){
-        console.log("this is the userID pased: ",userID)
         try {
             const cartProductData=await this.databases.listDocuments(
                 env.APPWRITE_DB,
@@ -236,7 +230,6 @@ class Seller{
                     Query.equal('productID',productID)
                 ]
             )
-           console.log(productData);
            return productData;
             
         } catch (error) {
@@ -267,7 +260,6 @@ class Seller{
     async getStoreData(sellerData){
 
         const sellerID=sellerData.$id;
-        console.log(sellerID)
         try {
             const storeData=await this.databases.listDocuments(
                 env.APPWRITE_DB,
@@ -285,7 +277,7 @@ class Seller{
     }
     
     async addImage(file){
-        console.log(file);
+
         try {
             const response=await this.storage.createFile(
                 env.APPWRITE_STORAGEID,
@@ -520,7 +512,6 @@ class Seller{
 
     async getProductData(productID=null){
 
-        console.log(productID);
 
         try {
             const productData=await this.databases.listDocuments(

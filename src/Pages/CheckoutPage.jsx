@@ -5,9 +5,12 @@ import { useLocation } from "react-router-dom";
 import sellerAccountService from "../appwrite/sellerAccountService";
 import Product from "../components/Product";
 import store from "../store/store";
+import { ClipLoader } from "react-spinners";
+import { useState } from "react";
 function CheckoutPage(){
 
     const navigate=useNavigate();
+    
     const location=useLocation();
     
     let { selectedProducts, total,savedAmount } = location.state || {};
@@ -109,8 +112,19 @@ const navigateToOrders=()=>{
 
     return(
         <>
+        <div>
+            {
+                // loading
+                // ?
+                // <div className="min-h-screen w-full flex justify-center items-center">
+                    // <ClipLoader color="#f76b05" size={55} />
+                // </div>
+                // :
+
+
         <div className="bg-[#F0F1F6]  min-h-screen" >
             <div className="nav-area">
+            <ClipLoader color="#f76b05" />
                 <div className="flex bg-white z-10 fixed border-b w-full p-2 items-center justify-between gap-4" >
                     <div className="flex items-center gap-4" >
                         <img src={images.backIcon} className="w-5  font-bold" alt="" onClick={()=>navigate("/cart")} />
@@ -153,7 +167,7 @@ const navigateToOrders=()=>{
 
             {Array.isArray(selectedProducts) && selectedProducts.map((product,index)=>(
              <div key={index}>
-                <Product product={product} />
+                <Product product={product} orderDisplay={false} />
              </div>
             ))}
 
@@ -203,6 +217,11 @@ const navigateToOrders=()=>{
             </div>
 
         </div>
+            }
+
+
+        </div>
+
 
 
         </>

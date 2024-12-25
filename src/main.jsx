@@ -24,6 +24,7 @@ import CartPage from './Pages/CartPage.jsx'
 import CheckoutPage from './Pages/CheckoutPage.jsx'
 import Orders from './Pages/Orders.jsx'
 import Review from './Pages/Review.jsx'
+import ScrollToTop from './components/ScrollToTop.jsx'
 // import AddressPage from './Pages/AddressPage.jsx'
 
 
@@ -37,6 +38,7 @@ const route=createBrowserRouter([
       element:<Home />
     },{
       path:'/searchProducts/:title',
+
       element:<SearchedProducts/>
     },
     {

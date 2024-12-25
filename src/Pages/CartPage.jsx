@@ -5,26 +5,25 @@ import { useEffect, useState } from "react";
 import sellerAccountService from "../appwrite/sellerAccountService";
 import { checkboxClasses } from "@mui/material";
 import CartProductPreview from "./CartProductPreview";
+import { ClipLoader } from "react-spinners";
 
 function CartPage(){
 
     const navigate=useNavigate();
     const userData=useSelector((state)=>state.userData)?.userData;
-
-    console.log(userData)
+    const [loading,setLoading]=useState(false);
 
     //all data including cartID etc
     const [cartProductsData,setCartProductsData]=useState([]);
 
     //only products data ID,Quantity
     const [cartProductArray,setCartProuctArray]=useState([]);
-    // console.log(cartProductArray);
-    // console.log("This is what i have to see: " , cartProductArray);
+  
 
     //complete Product Data fetched through IDS
      
     const [productsData,setProductsData]=useState([]);
-    // console.log(productsData);
+   
 
 
     const [total,setTotal]=useState(0);
@@ -33,27 +32,27 @@ function CartPage(){
     const [savedAmount,setSavedAmount]=useState(0);
     const [selectedProducts,setSelectedProducts]=useState([]);
 
-    // console.log("these are the selected Products: ", selectedProducts);
+    
     const [allCheckbox,setAllCheckbox]=useState(false);
 
 
 
     useEffect(()=>{
-     
+      setLoading(true);
         sellerAccountService.getCartProductData(userData?.$id)
         .then((res)=>{
             if(res.total>0){
-                // console.log(res);
+        
             setCartProductsData(res.documents[0]);
             //Stringify data to JSON
             const JSONProducts=StringifyToJsonArrayConverter(res.documents[0]?.products);
             setCartProuctArray(JSONProducts)
-            // console.log(JSONProducts);
+          
 
             //IDS from product Data
             const onlyProductIDS=JSONProducts.map((item)=>item.productID);
             //fetch all the product with these IDS
-            // console.log("These are the only product IDS: ", onlyProductIDS);
+     
             sellerAccountService.getProductData(onlyProductIDS)
             .then((res)=>{
                  
@@ -66,21 +65,27 @@ function CartPage(){
                     return matchedProduct ? { ...item, quantity: matchedProduct.quantity } : item;
                   });
                 res.total>0 && setProductsData(updatedProducts);
+                setLoading(false);
             })
+        }
+        else{
+            setLoading(false);
         }
         })
         .catch((errr)=>{
             console.log(errr);
+            setLoading(false);
+
         })
 
 
-    }
-    ,[userData]
+
+
+    },[userData]
 )
 
 useEffect(()=>{
 
-    console.log("here");
     
     let sum=0;
     let tempSum;
@@ -103,6 +108,7 @@ useEffect(()=>{
 
     setSavedAmount(savedAmount-sum);
     setTotal(sum);
+    // setLoading(false);
 
 
 },[selectedProducts])
@@ -122,7 +128,6 @@ useEffect(()=>{
 
    const updateQuantity=(productID,quantity)=>{
 
-    //   console.log("here")
       const newarr=cartProductArray.map((item)=>item.productID===productID?{...item,quantity:quantity}:item)
       setCartProuctArray(newarr);
 
@@ -144,9 +149,8 @@ useEffect(()=>{
       setTimeout(()=>{
         sellerAccountService.updateCartProductData({cartID:cartProductsData?.$id,products:JsonToStringifyArrayConverter(newarr)})
       .then((res)=>{
-        console.log("Is updated in server: " , res);
       })
-      },6000)
+      },5000)
      
     
    }
@@ -164,11 +168,9 @@ useEffect(()=>{
 
    const handleSelectedProducts = (productID) => {
     if (selectedProducts.find((item) => item.productID === productID)) {
-      console.log("I am already selected!");
       // Create a new array by filtering out the deselected product
       setSelectedProducts(selectedProducts.filter((item) => item.productID !== productID));
     } else {
-      console.log("I am selecting for the first time!");
       // Create a new array by spreading the old array and adding the new product
       const newProduct = cartProductArray.find((item) => item.productID === productID);
       if (newProduct) {
@@ -190,7 +192,6 @@ useEffect(()=>{
     }
     else if(selectedProducts.length!==cartProductArray.length){
         //delete specific products
-         console.log(selectedProducts);
         let tempArray=productsData.filter((product)=>{
             if(!selectedProducts.some((item)=>item.productID===product.$id)){
                return product;
@@ -198,7 +199,6 @@ useEffect(()=>{
         })
 
         setProductsData(tempArray);
-        console.log(tempArray);
 
         tempArray=cartProductArray.filter((product)=>{
             if(!selectedProducts.some((item)=>item.productID===product.productID)){
@@ -235,6 +235,18 @@ useEffect(()=>{
 
     return(
         <>
+
+
+        <div>
+            {
+                loading?
+                <div className="flex items-center justify-center min-h-screen" >
+                    <ClipLoader color="#F85606"  size={50} />
+                </div>
+                :
+
+
+
         <div className="bg-[#f5f5f5] min-h-screen" >
 
          <div className="nav-area">
@@ -246,7 +258,7 @@ useEffect(()=>{
                 <div onClick={deleteSelectedItems} className="delete-icon" style={{width: '4.9vw', height: '4.8vw', fill: 'rgb(0, 0, 0)', stroke: 'rgb(0, 0, 0)', strokeWidth: 2}}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36" width="100%" height="100%" style={{display: 'block'}}><path d="m9 11 1.544-4.632A2 2 0 0 1 12.441 5h11.117a2 2 0 0 1 1.898 1.368L27 11m0 0h2m-2 0H7m-2 0h2m24 0h-2m0 0-.905 18.1a2 2 0 0 1-1.997 1.9H9.903a2 2 0 0 1-1.998-1.9L7 11m11 4v12m5.5-12-1 12m-10-12 1 12"></path></svg></div>
             </div>
 
-            <div className="main-area  pt-14" >
+            <div className="main-area  mb-14 pt-14" >
 
                 {
                     cartProductArray.length>0
@@ -274,7 +286,7 @@ useEffect(()=>{
                         :
                       <div className="text-[#F85606]  font-bold absolute top-[50%] left-[50%] -translate-y-[50%] pointer-cursor  -translate-x-[50%]" >
                         <p className="mb-2" >Log in first</p>
-                        <button className="border-[1px] px-4 py-1 border-[#F85606]" >Log in</button>
+                        <button onClick={()=>navigate("/account/loginSignup")} className="border-[1px] px-4 py-1 border-[#F85606]" >Log in</button>
                          </div>
 
 }
@@ -309,6 +321,10 @@ useEffect(()=>{
          </div>
 
         </div>
+            }
+
+        </div>
+
 
         </>
     )

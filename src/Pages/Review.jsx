@@ -6,6 +6,7 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { useRef } from "react";
 import images from "../assets/Images";
+import { ClipLoader } from "react-spinners";
 
 function Review() {
     const userData = useSelector((state) => state.userData?.userData);
@@ -17,13 +18,19 @@ function Review() {
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef(null);
     const [loading, setLoading] = useState(false);
+    const [loadingData,setLoadingData]=useState(false)
     const navigate=useNavigate(); 
 
     useEffect(() => {
+        setLoadingData(true);
         if (userData) {
             sellerAccountService.getProductData(productID).then((res) => {
                 if (res.total > 0) {
                     setProductData(res.documents[0]);
+                    setLoadingData(false);
+                }
+                else{
+                    setLoadingData(false);
                 }
             });
         }
@@ -67,7 +74,6 @@ function Review() {
         }
         else{
             setLoading(false);
-            setLoading(false);
         }
       //a
         // Add logic to submit the review
@@ -75,6 +81,10 @@ function Review() {
 
     return (
         <>
+       
+
+
+
         <div className="nav-area">
                 <div className="flex bg-white z-10 fixed border-b w-full p-2 items-center justify-between gap-4" >
                     <div className="flex items-center gap-4" >
@@ -87,12 +97,21 @@ function Review() {
             <div className=" pt-16 px-3 pb-4 ">
             
                 {/* Product Display */}
+
+                {
+                    loadingData
+                    ? 
+                    <div>
+                        <ClipLoader color="#F85606" size={50} />
+                    </div>
+                    :
+
                 <div className="flex gap-4 ">
                     {productData?.productImages && productData?.productImages.length > 0 && (
                         <img
                             src={sellerAccountService.getImagePreview(productData?.productImages[0])}
-                            className="rounded-md"
                             alt="Product"
+                            className="w-32 h-28 rounded-lg"
                         />
                     )}
                     <div>
@@ -100,12 +119,13 @@ function Review() {
                         <p className="text-[#F85606] font-bold text-lg">Rs. {productData?.discountedPrice}</p>
                     </div>
                 </div>
-
+                }
+             
                 {/* Rating Section */}
                 <div className="flex flex-col gap-4 mt-4">
                     <div>
                         <p className="text-lg font-bold">Rate the Product</p>
-                        <Stack spacing={1}>
+                        <Stack spacing={3}>
                             <Rating
                                 name="product-rating"
                                 value={ratingValue}

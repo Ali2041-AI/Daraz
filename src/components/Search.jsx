@@ -62,8 +62,9 @@ function Search(){
             {search && (
                     <div className="bg-white w-full font-notoSans text-sm font-semibold text-gray-900 h-auto">
                         <ul>
-                            {filteredTitles.map((title, index) => (
-                                <li onClick={()=>navigate(`/searchProducts/${title}`)}  key={index} className="p-2 border-b-[0.5px]">
+                            {filteredTitles.map((title, index) => ( 
+
+                                <li onClick={()=>navigate(`/searchProducts/${title}`)}  key={index} className="p-2 truncate-textLine  border-b-[0.5px]">
                                     {title}
                                 </li>
                             ))}

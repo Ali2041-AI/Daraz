@@ -7,6 +7,7 @@ import { logInUser,logOutUser } from "../store/darazSlice";
 import { useState } from "react";
 import sellerAccountService from "../appwrite/sellerAccountService";
 import {LogInSeller,LogOutSeller,setStoreData} from '../store/darazSlice'
+import { MoonLoader } from "react-spinners";
 
 
 function Login(){
@@ -48,7 +49,7 @@ function Login(){
         
        } catch (error) {
         console.log(error);
-        setError(error.message);
+        setError("Invalid Email or Password");
        }
 
        setIsSubmitting(false);
@@ -64,6 +65,8 @@ function Login(){
 
     return(
             <>
+           
+               
             <div className="w-full font-notoSans">
                 <div className="w-[97%] mx-auto mt-4">
                     <div>

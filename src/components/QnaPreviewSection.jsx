@@ -20,7 +20,6 @@ function QnaPreviewSection({productID}){
         sellerAccountService.getProductQueries("productID",productID)
         .then((res)=>{
             if(res.total>0){  //got some data from api
-                console.log("We have got these Questions: ",res);
                 setQna(res.documents);
             }
         })

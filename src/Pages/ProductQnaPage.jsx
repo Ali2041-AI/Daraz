@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import sellerAccountService from "../appwrite/sellerAccountService";
 import { useSelector } from "react-redux";
 import SingleQA from "../components/SingleQA";
+import { set } from "react-hook-form";
+import { ClipLoader } from "react-spinners";
 
 function ProductQna(){
 
@@ -15,6 +17,7 @@ function ProductQna(){
     const [buttonLoading,setButtonLoading]=useState(false);
     const userData=useSelector(state=>state.userData?.userData);
     const storeID=productData?.storeID;
+    const [loading,setLoading]=useState(false);
 
 
     const navigate=useNavigate();
@@ -22,6 +25,7 @@ function ProductQna(){
 
 
     useEffect(()=>{
+        setLoading(true);
 
         sellerAccountService.getProductQueries("productID",productID)
         .then((res)=>{
@@ -30,9 +34,11 @@ function ProductQna(){
 
             }
             setQnaData(res.documents);
+            setLoading(false);
         })
         .catch((error)=>{
             console.log(error.message);
+            setLoading(false);
         })
 
         sellerAccountService.getProductData(productID)
@@ -68,7 +74,7 @@ function ProductQna(){
 
     return (
         <>
-          <div className="bg-gradient-to-r  z-40  absolute w-full  from-[#F85606] to-[#F87606] overflow-y-hidden p-3 text-white flex items-center gap-2">
+         <div className="bg-gradient-to-r  z-40  absolute w-full  from-[#F85606] to-[#F87606] overflow-y-hidden p-3 text-white flex items-center gap-2">
             <img
               src={images.backIconQA}
               className="w-4 h-4"
@@ -77,6 +83,21 @@ function ProductQna(){
             />
             <p className="font-bold text-[18px]">Q&A</p>
           </div>
+
+
+        {
+          loading
+          ? <div className="absolute top-[50%] left-[50%] -translate-x-[50%] justify-center min-h-screen" >
+          <ClipLoader color="#F85606"  size={50} />
+      </div>
+
+          :
+        
+           
+
+<div>
+
+         
           {qnaData.length === 0 ? (
             <div className="flex justify-center bg-[#EFF0F5] items-center h-screen  text-sm opacity-70">
               <div className="text-center">
@@ -114,12 +135,21 @@ function ProductQna(){
           }
 
 
+
+
+</div>
+
+}
+
+
         
 
             <div className=" absolute p-2 flex bg-white w-full bottom-0 z-40"  >
                  <input type="text" value={message} onChange={e=>setMessage(e.target.value)} className="bg-[#EFF0F5] rounded-xl px-4 py-3 outline-none border-none flex-1"  placeholder="Enter your question(s) here" />
                  <button className={`  px-6 rounded-full py-1 text-white ${buttonLoading?"bg-blue-600":"bg-[#F85606]"}  `} onClick={sendMessage} >Send</button>
             </div>
+
+
         
         </>
       );

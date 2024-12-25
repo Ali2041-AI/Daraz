@@ -43,7 +43,7 @@ const formattedDate = `${day} ${month} ${year}`;
                    <p className="text-[10px] tracking-wider opacity-70 " >⊙{formattedDate}</p>
                 </div> 
 
-                <Rating name="half-rating-read" className="mb-1" size="small" defaultValue={0} value={randomReview.reviewStars}  precision={0.5} readOnly />
+                <Rating name="half-rating-read" className="mb-1" size="small" defaultValue={0} value={parseInt(randomReview.reviewStars)}  precision={0.5} readOnly />
             </div>
             <div className="reviewText">
              <p className="text-[12px]" > {randomReview.reviewText}</p>

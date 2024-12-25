@@ -15,17 +15,17 @@ import Services from "../components/Services";
 import ProductReviewSection from "../components/ProductReviewSection";
 import QnaPreviewSection from "../components/QnaPreviewSection";
 import Description from "../components/Description";
+import { ClipLoader } from "react-spinners";
 
 function ProductDisplay() {
   const [product, setProuct] = useState({});
-  console.log(product);
   const [images, setImages] = useState([]);
+  const [loadingData,setLoadingData]=useState(false);
   const [reviews, setProductReviews] = useState([]);
 
   const [isScrolled, setIsScrolled] = useState(false);
 
   const { productID } = useParams();
-  const [productImage, setProductImage] = useState([]);
   const [productRating, setProductRating] = useState(0);
   const [totalRatings, setTotelRatings] = useState(0);
   const [selectedColor, setSelectedColor] = useState("");
@@ -35,11 +35,8 @@ function ProductDisplay() {
   const [statusMessage, setStatusMessage] = useState("");
   const [actionMessage, setActionMessage] = useState("");
 
-  const [imageLimitError, setImageLimitError] = useState(false);
   const [productImages, setProductImages] = useState([]);
-  const [imageCount, setImageCount] = useState(1);
 
-  // console.log(`Here is the product: `,product);
 
   const { loading, setLoading } = useState(true);
   const [inputReview, setInputReview] = useState("");
@@ -68,11 +65,12 @@ function ProductDisplay() {
   }, []);
 
   useEffect(() => {
+    setLoadingData(true);
     sellerAccountService
       .getProductData(productID)
       .then((res) => {
         if (res.total > 0) {
-          //  console.log(res.documents[0])
+  
           setProuct(res.documents[0]);
           Array.isArray(res.documents[0].colors) &&
           res.documents[0].colors.length > 0
@@ -85,19 +83,25 @@ function ProductDisplay() {
               arr.push(sellerAccountService.getImagePreview(element));
             });
           setImages(arr);
-          // setLoading(false);
-          // console.log(`Here is the Product ID: `,productID);
+      
           sellerAccountService.getReviewData(productID).then((res) => {
             if (res.total > 0) {
               setProductReviews(res.documents);
               calculateRatings(res.documents);
               setTotelRatings(res.documents.length);
+              setLoadingData(false);
+            }else{
+              setLoadingData(false);
             }
           });
+        }
+        else{
+          setLoadingData(false);
         }
       })
       .catch((error) => {
         console.log(error);
+        setLoadingData(false);
       });
   }, []);
 
@@ -132,31 +136,7 @@ function ProductDisplay() {
     setProductRating(averageRating);
   };
 
-  const addImage = () => {
-    setImageLimitError(false);
-    if (productImages.length > 3) {
-      setImageLimitError(true);
-      return;
-    }
-    if (imageCount > 5) {
-      setImageLimitError(true);
-      return;
-    }
-    console.log("here is the product Image: ", productImage);
-    sellerAccountService
-      .addImage(productImage)
-      .then((fileID) => {
-        const newArr = [...productImages, fileID];
-        setProductImages(newArr);
-        //  console.log(newArr);
-        setProductImage([]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    setProductImage([]);
-  };
+  
 
   const addProductToCart = () => {
     if (!userID) {
@@ -174,11 +154,10 @@ function ProductDisplay() {
           if (res.total === 0) {
             //create Cart
             const products = [JSON.stringify(newProduct)];
-            console.log(products);
+
             sellerAccountService
               .addProductToCart({ userID, products })
               .then((res) => {
-                console.log(res);
                 statusSetter("Successfully added to cart", "Go To Cart");
               });
           } else {
@@ -199,11 +178,11 @@ function ProductDisplay() {
               const products = cartProductArray.map((item) =>
                 JSON.stringify(item)
               );
-              console.log(products);
+             
               sellerAccountService
                 .updateCartProductData({ cartID: cartData?.$id, products })
                 .then((res) => {
-                  console.log(res);
+                
                   statusSetter("Successfully added to cart", "Go To Cart");
                 })
                 .catch((error) => {
@@ -240,11 +219,13 @@ function ProductDisplay() {
 
   return (
     <div className="bg-[#F8F8F8]">
-      {loading ? (
-        ""
+      {loadingData ? (
+          <div className="flex items-center justify-center min-h-screen" >
+          <ClipLoader color="#F85606"  size={50} />
+      </div>
       ) : (
         <>
-          <div className="absolute z-50 bg-white    w-full">
+          <div className="absolute z-50  bg-white    w-full">
             <div
               className={`svgArea fixed flex w-full z-50 transition-colors duration-300 ${
                 isScrolled ? "bg-white shadow-lg pb-3" : "bg-transparent"
@@ -305,7 +286,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
             className="mySwiper"
           >
             {images.map((img, index) => (
-              <SwiperSlide navigation={false} key={index}>
+              <SwiperSlide  key={index}>
                 <img src={img} className="w-full h-[320px]" alt="" />
               </SwiperSlide>
             ))}
@@ -353,7 +334,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
                       name="half-rating-read"
                       size="small"
                       defaultValue={0}
-                      value={productRating}
+                      value={parseInt(productRating)}
                       precision={0.5}
                       readOnly
                     />
@@ -419,7 +400,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
 
           <QnaPreviewSection productID={productID} />
 
-          <Description
+          <Description 
             Description={product?.description}
             productImages={images}
           />
@@ -427,7 +408,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
           {/*        */}
 
           <div
-            className={`section-area fixed bottom-9  transition-all duration-500 ${
+            className={`section-area fixed bottom-9  transition-all duration-300 ${
               error ? "opacity-100  " : "opacity-0 "
             }  w-full flex justify-between  text-sm  p-4 bg-[#323232]  text-white      tracking-wider `}
           >
@@ -435,6 +416,9 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
             <button className="text-blue-600" onClick={handleNavigation}>
               {actionMessage}{" "}
             </button>
+          </div>
+          <div className="mb-8">
+
           </div>
           <div className="fixed bottom-0   w-full bg-white text-white">
             <div>
@@ -450,65 +434,6 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
             </div>
           </div>
 
-          <div className="mt-96">
-            <input
-              type="text"
-              value={inputReview}
-              placeholder="Review...."
-              onChange={(e) => setInputReview(e.target.value)}
-              className="border-2 border-black"
-            />
-            <input
-              type="number"
-              value={inputReviewStars}
-              placeholder="Review...."
-              onChange={(e) => setInputReviewStart(e.target.value)}
-              className="border-2 border-black"
-            />
-            <button
-              onClick={giveReview}
-              className="bg-blue-600 rounded-full text-white px-2 py-1"
-            >
-              Give Review
-            </button>
-          </div>
-
-          <p className="my-10">All products Reveview Are Below: </p>
-
-          {Array.isArray(reviews) &&
-            reviews.map((itemReview) => {
-              return (
-                <div>
-                  <p>{itemReview.reviewText}</p>
-                  <Stack spacing={1}>
-                    <Rating
-                      name="half-rating-read"
-                      defaultValue={3}
-                      precision={0.5}
-                      readOnly
-                    />
-                  </Stack>
-                </div>
-              );
-            })}
-
-          <label htmlFor="images">Upload Product Images</label>
-
-          <div className="flex gap-8 pb-14 items-center">
-            <input
-              className="w-52"
-              type="file"
-              accept="image/png ,  ,image/jpg ,image/webp , image/jpeg, image/gif"
-              onChange={(e) => setProductImage(e.target.files[0])}
-            />
-            <button
-              type="button"
-              onClick={addImage}
-              className="bg-red-600 w-14 h-14 rounded-full text-3xl  hover:bg-red-500 text-white"
-            >
-              +
-            </button>
-          </div>
         </>
       )}
     </div>

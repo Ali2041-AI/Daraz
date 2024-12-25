@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData, fetchProducts } from "./store/darazSlice";
 import { Outlet } from "react-router";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,7 +20,10 @@ function App() {
 
   return (
     <>
+      <ScrollToTop
+      />
       <Outlet />
+      {/* </ScrollToTop> */}
     </>
   );
 }
