@@ -23,7 +23,7 @@ function Product({product,orderDisplay}){
                             <p className="text-[#F85606] font-bold" >Rs. {product.discountedPrice}</p>
                             <p className={`  text-sm text-gray-500 font-bold`}      >Qty: {product.quantity}</p>
                         </div>
-                        <button onClick={()=>navigate(`/review/${product?.$id}`)} className={`text-center border  border-[#F85606] text-[#F85606] w-[50%] ml-auto text-sm  rounded-lg py-1`} >WRTIE A REVIEW</button>
+                        <button onClick={()=>navigate(`/review/${product?.$id}`)} className={`text-center border  ${product?.orderStatus!=="deliverd"?"hidden":""} border-[#F85606] text-[#F85606] w-[50%] ml-auto text-sm  rounded-lg py-1`} >WRTIE A REVIEW</button>
                         {/* Shipping fee for each product */}
                         <div className="flex justify-between text-sm" >
                         <p className={`font-bold ${orderDisplay?"hidden":""} `} >Shipping fee </p>
