@@ -29,7 +29,7 @@ function StoreDashboard() {
             .catch((error) => {
                 console.log(error);
             });
-    }, [refresher]);
+    }, [storeData,refresher]);
 
     return (
         <>
@@ -87,11 +87,11 @@ function StoreDashboard() {
                     </div>
 
                     {/* Footer Navigation */}
-                    <div className="w-full fixed bottom-0 bg-white shadow-lg py-3">
+                    <div className="w-full fixed z-50 bottom-0 bg-white shadow-lg py-3">
                         <div className="w-[80%] mx-auto max-w-[600px] flex justify-between items-center text-gray-600">
                             <FooterIcon src={images.sellerProducts} label="Products" />
                             <FooterIcon src={images.revenue} label="Revenue" />
-                            <FooterIcon src={images.orders} label="Orders" />
+                            <FooterIcon src={images.orders} label="Orders" onClick={()=>navigate('/account/storeDashboard/orders')} />
                             <FooterIcon src={images.settings} label="Settings" onClick={() => navigate('/account')} />
                         </div>
                     </div>

@@ -435,6 +435,25 @@ class Seller{
     }
 
 
+    async updateOrderStatus(orderID,orderStatus){
+        try {
+            const response=await this.databases.updateDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_ORDERID,
+                orderID,
+                {
+                    orderStatus
+                }
+            )
+           return response;
+            
+        } catch (error) {
+            throw("UPDATE ORDER STATUS :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
+
 
    
     getImagePreview(featuredImageID){
