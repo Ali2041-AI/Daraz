@@ -24,6 +24,7 @@ function ProductDisplay() {
   const [reviews, setProductReviews] = useState([]);
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const allProducts=useSelector((state)=>state.userData.allProducts);
 
   const { productID } = useParams();
   const [productRating, setProductRating] = useState(0);
@@ -64,46 +65,56 @@ function ProductDisplay() {
     };
   }, []);
 
-  useEffect(() => {
+
+
+  useEffect(()=>{
     setLoadingData(true);
-    sellerAccountService
-      .getProductData(productID)
-      .then((res) => {
-        if (res.total > 0) {
-  
-          setProuct(res.documents[0]);
-          Array.isArray(res.documents[0].colors) &&
-          res.documents[0].colors.length > 0
-            ? setSelectedColor(res.documents[0].colors[0])
-            : setSelectedColor("");
-          const imageArray = res.documents[0].productImages;
-          const arr = [];
-          Array.isArray(imageArray) &&
-            imageArray.forEach((element) => {
-              arr.push(sellerAccountService.getImagePreview(element));
-            });
-          setImages(arr);
+    const prod=allProducts.find((product)=>product?.$id===productID);
+    setProuct(prod);
+
+
+    Array.isArray(prod.colors) &&
+    prod.colors.length > 0
+      ? setSelectedColor(prod.colors[0])
+      : setSelectedColor("");
+    const imageArray = prod.productImages;
+    const arr = [];
+    Array.isArray(imageArray) &&
+    imageArray.forEach((element) => {
+      arr.push(sellerAccountService.getImagePreview(element));
+    });
+   setImages(arr);
+
+
+   sellerAccountService.getReviewData(productID).then((res) => {
+    if (res.total > 0) {
+      setProductReviews(res.documents);
+      calculateRatings(res.documents);
+      setTotelRatings(res.documents.length);
+      setLoadingData(false);
+    }else{
+      setLoadingData(false);
+    }
+  });
+
+
+
+
+
+    
+    
+
+
+
+
+
+  },[])
+
+
+        
+         
       
-          sellerAccountService.getReviewData(productID).then((res) => {
-            if (res.total > 0) {
-              setProductReviews(res.documents);
-              calculateRatings(res.documents);
-              setTotelRatings(res.documents.length);
-              setLoadingData(false);
-            }else{
-              setLoadingData(false);
-            }
-          });
-        }
-        else{
-          setLoadingData(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoadingData(false);
-      });
-  }, []);
+
 
   const giveReview = () => {
     const reviewText = inputReview;
@@ -422,11 +433,9 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
           </div>
           <div className="fixed bottom-0   w-full bg-white text-white">
             <div>
-              <button className=" bg-gradient-to-tr from-[#47CEEE] to-[#17A5DB] px-4 py-2 w-[50%] ">
-                Buy Now
-              </button>
+              
               <button
-                className=" bg-gradient-to-tr from-[#FF9E35] to-[#FF6A03] px-4 py-2 w-[50%] "
+                className=" bg-gradient-to-tr from-[#FF9E35] to-[#FF6A03] px-4 py-2 w-full "
                 onClick={addProductToCart}
               >
                 Add to Cart

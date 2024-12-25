@@ -149,8 +149,9 @@ useEffect(()=>{
       setTimeout(()=>{
         sellerAccountService.updateCartProductData({cartID:cartProductsData?.$id,products:JsonToStringifyArrayConverter(newarr)})
       .then((res)=>{
+        console.log("Is updated in server: " , res);
       })
-      },5000)
+      },6000)
      
     
    }
@@ -168,9 +169,11 @@ useEffect(()=>{
 
    const handleSelectedProducts = (productID) => {
     if (selectedProducts.find((item) => item.productID === productID)) {
+      console.log("I am already selected!");
       // Create a new array by filtering out the deselected product
       setSelectedProducts(selectedProducts.filter((item) => item.productID !== productID));
     } else {
+      console.log("I am selecting for the first time!");
       // Create a new array by spreading the old array and adding the new product
       const newProduct = cartProductArray.find((item) => item.productID === productID);
       if (newProduct) {
@@ -192,6 +195,7 @@ useEffect(()=>{
     }
     else if(selectedProducts.length!==cartProductArray.length){
         //delete specific products
+         console.log(selectedProducts);
         let tempArray=productsData.filter((product)=>{
             if(!selectedProducts.some((item)=>item.productID===product.$id)){
                return product;
@@ -199,6 +203,7 @@ useEffect(()=>{
         })
 
         setProductsData(tempArray);
+        console.log(tempArray);
 
         tempArray=cartProductArray.filter((product)=>{
             if(!selectedProducts.some((item)=>item.productID===product.productID)){

@@ -25,6 +25,8 @@ import CheckoutPage from './Pages/CheckoutPage.jsx'
 import Orders from './Pages/Orders.jsx'
 import Review from './Pages/Review.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
+import CategoriesPage from './Pages/Categories.jsx'
+import CategoriesDisplay from './Pages/CategoriesDisplay.jsx'
 // import AddressPage from './Pages/AddressPage.jsx'
 
 
@@ -64,6 +66,15 @@ const route=createBrowserRouter([
       path:"/review/:productID",
       element:<Review />
 
+    },
+    {
+      path:'/category',
+      element:<CategoriesPage />
+
+    },
+    {
+      path:'/categories/:categoryName',
+      element:<CategoriesDisplay />
     },
     {
       path:'/cart',

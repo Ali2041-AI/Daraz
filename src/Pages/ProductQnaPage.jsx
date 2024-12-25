@@ -56,7 +56,15 @@ function ProductQna(){
         if(message.trim()!==""){
             sellerAccountService.sendProductQuerie({userID:userData?.$id,productID,customerName:userData?.name,storeID,querie:message})
             .then((res)=>{
-                console.log(res)
+              setLoading(true);
+                sellerAccountService.getProductQueries("productID",productID)
+                .then((res)=>{
+                  if(res.total>0){
+                    console.log(res.documents);
+                    setQnaData(res.documents);
+                    setLoading(false);
+                  }
+                })
             })
 
 
@@ -74,7 +82,7 @@ function ProductQna(){
 
     return (
         <>
-         <div className="bg-gradient-to-r  z-40  absolute w-full  from-[#F85606] to-[#F87606] overflow-y-hidden p-3 text-white flex items-center gap-2">
+         <div className="bg-gradient-to-r  z-40  fixed w-full  from-[#F85606] to-[#F87606] overflow-y-hidden p-3 text-white flex items-center gap-2">
             <img
               src={images.backIconQA}
               className="w-4 h-4"
@@ -92,9 +100,6 @@ function ProductQna(){
       </div>
 
           :
-        
-           
-
 <div>
 
          
@@ -144,7 +149,7 @@ function ProductQna(){
 
         
 
-            <div className=" absolute p-2 flex bg-white w-full bottom-0 z-40"  >
+            <div className=" fixed p-2 flex bg-white w-full bottom-0 z-40"  >
                  <input type="text" value={message} onChange={e=>setMessage(e.target.value)} className="bg-[#EFF0F5] rounded-xl px-4 py-3 outline-none border-none flex-1"  placeholder="Enter your question(s) here" />
                  <button className={`  px-6 rounded-full py-1 text-white ${buttonLoading?"bg-blue-600":"bg-[#F85606]"}  `} onClick={sendMessage} >Send</button>
             </div>
