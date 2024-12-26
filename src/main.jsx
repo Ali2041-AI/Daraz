@@ -28,6 +28,7 @@ import ScrollToTop from './components/ScrollToTop.jsx'
 import CategoriesPage from './Pages/Categories.jsx'
 import CategoriesDisplay from './Pages/CategoriesDisplay.jsx'
 import SellerOrder from './Pages/SellerOrder.jsx'
+import RevenuePage from './Pages/Revenue.jsx'
 // import AddressPage from './Pages/AddressPage.jsx'
 
 
@@ -127,6 +128,9 @@ const route=createBrowserRouter([
             ,{
               path:'orders',
               element:<SellerOrder />
+            },{
+              path:'revenue',
+              element:<RevenuePage />
             }
           ]
 

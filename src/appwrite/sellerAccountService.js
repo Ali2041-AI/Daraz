@@ -453,6 +453,25 @@ class Seller{
 
     }
 
+    async updateProductData(productID,sold,stock){
+        try {
+            const response=await this.databases.updateDocument(
+                env.APPWRITE_DB,
+                env.APPWRITE_PRODUCT_TABLE,
+                productID,
+                {
+                    sold,
+                    stock
+                }
+            )
+           return response;
+            
+        } catch (error) {
+            throw("UPDATE PRODUCT DATA :: APPWRITE ::ERROR ",error.message)
+        }
+
+    }
+
 
 
    
