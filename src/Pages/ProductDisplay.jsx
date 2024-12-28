@@ -69,15 +69,20 @@ function ProductDisplay() {
 
   useEffect(()=>{
     setLoadingData(true);
+
+    if(allProducts!==null && allProducts.length!==0){
+
+
     const prod=allProducts.find((product)=>product?.$id===productID);
+    
     setProuct(prod);
 
 
-    Array.isArray(prod.colors) &&
+    Array.isArray(prod?.colors) &&
     prod.colors.length > 0
-      ? setSelectedColor(prod.colors[0])
+      ? setSelectedColor(prod?.colors[0])
       : setSelectedColor("");
-    const imageArray = prod.productImages;
+    const imageArray = prod?.productImages;
     const arr = [];
     Array.isArray(imageArray) &&
     imageArray.forEach((element) => {
@@ -98,6 +103,12 @@ function ProductDisplay() {
   });
 
 
+}
+else{
+  setLoadingData(false);
+}
+
+
 
 
 
@@ -108,7 +119,7 @@ function ProductDisplay() {
 
 
 
-  },[])
+  },[allProducts])
 
 
         
@@ -229,14 +240,14 @@ function ProductDisplay() {
   };
 
   return (
-    <div className="bg-[#F8F8F8]">
+    <div className="bg-[#F8F8F8] ">
       {loadingData ? (
           <div className="flex items-center justify-center min-h-screen" >
           <ClipLoader color="#F85606"  size={50} />
       </div>
       ) : (
-        <>
-          <div className="absolute z-50  bg-white    w-full">
+        <div className="md:hidden">
+          <div className="absolute z-50   bg-white    w-full">
             <div
               className={`svgArea fixed flex w-full z-50 transition-colors duration-300 ${
                 isScrolled ? "bg-white shadow-lg pb-3" : "bg-transparent"
@@ -357,7 +368,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
             </div>
           </div>
 
-          <div className="options-section pb-4  text-sm ml-2 bg-white mt-2">
+          <div className="options-section pb-4  text-sm pl-2 bg-white mt-2">
             <p className="opacity-60 pt-2 mb-4">Product Options</p>
 
             {Array.isArray(product.colors) && product.colors.length > 0 && (
@@ -421,8 +432,7 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
           <div
             className={`section-area fixed bottom-9  transition-all duration-300 ${
               error ? "opacity-100  " : "opacity-0 "
-            }  w-full flex justify-between  text-sm  p-4 bg-[#323232]  text-white      tracking-wider `}
-          >
+            }  w-full flex justify-between  text-sm  p-4 bg-[#323232]  text-white      tracking-wider `}>
             <p>{statusMessage}</p>
             <button className="text-blue-600" onClick={handleNavigation}>
               {actionMessage}{" "}
@@ -443,10 +453,156 @@ c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"
             </div>
           </div>
 
-        </>
+        </div>
+
+        
       )}
+      <div className="mt-32 bg-white hidden md:block">
+        {/* only for md and bigger screesn */}
+        <div className="flex w-[90%] mx-auto py-8">
+          {/* Image Section */}
+          <div className="w-1/3">
+            <div className="main-image mb-4">
+              <img src={images[0]} className="w-[90%] h-[50%]  rounded-md" alt="Product" />
+            </div>
+            <div className="thumbnail-images flex gap-2">
+              {images.map((img, index) => (
+                <div
+                  key={index}
+                  className="thumbnail w-20 h-20 border cursor-pointer"
+                  onMouseEnter={() => {
+                    const mainImage = document.querySelector(".main-image img");
+                    mainImage.src = img;
+                  }}
+                >
+                  <img src={img} className="w-full h-full object-cover" alt="Thumbnail" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Product Details Section */}
+          <div className="w-1/2 px-8">
+            <h1 className="text-2xl font-bold mb-4">{product.productTitle}</h1>
+            <div className="ratings-section text-[14px] mb-4">
+              <Stack spacing={1}>
+                <div className="flex gap-2 items-center">
+                  <Rating
+                    name="half-rating-read"
+                    size="small"
+                    defaultValue={0}
+                    value={parseInt(productRating)}
+                    precision={0.5}
+                    readOnly
+                  />
+                  <span className="opacity-45">{productRating}</span>
+                  <span className="opacity-45">({totalRatings})</span>
+                </div>
+              </Stack>
+            </div>
+            <div className="price-section mb-4">
+              {product?.discountedPrice ? (
+                <div className="flex items-center">
+                  <p className="text-[#FE4960] text-2xl font-bold">
+                    Rs. {product.discountedPrice}
+                  </p>
+                  <p className="text-[13.3px] mt-[6px] font-light self-center text-gray-600 line-through ml-1 mr-1">
+                    Rs. {product.price}
+                  </p>
+                  <p className="bg-[#FEECEF] text-[#FE5D85]">
+                    -{parseInt(100 - (product.discountedPrice / product.price) * 100)}%
+                  </p>
+                </div>
+              ) : (
+                <p className="text-2xl font-bold">Rs. {product.price}</p>
+              )}
+            </div>
+            <div className={`options-section ${Array.isArray(product?.colors) && product?.colors.length ===0 && Array.isArray(product?.sizes) && product?.sizes.length===0?"hidden":""} text-sm mb-4`}>
+              <p className="opacity-60 mb-4">Product Options</p>
+              {Array.isArray(product?.colors) && product?.colors.length > 0 && (
+                <div className="mb-2">
+                  <span className="mr-2">Colors: </span>
+                  {product.colors.map((color, index) => (
+                    <span
+                      key={color}
+                      className={`border-black cursor-pointer ${
+                        selectedColor === color ? "border-2 opacity-90" : ""
+                      } border mr-2 text-[14px] p-1 opacity-70`}
+                      onClick={() => setSelectedColor(color)}
+                    >
+                      {color}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {Array.isArray(product?.sizes) && product?.sizes?.length > 0 && (
+                <div>
+                  <span className="mr-2">Sizes: </span>
+                  {product.sizes.map((size, index) => (
+                    <span
+                      key={size}
+                      className={`border-black cursor-pointer ${
+                        selectedSize === size ? "border-2 opacity-90" : ""
+                      } border mr-2 text-[14px] p-1 opacity-70`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {size}
+                    </span>
+                  ))}
+                </div>
+                
+              )}
+              
+            </div>
+            <div
+            className={`section-area fixed bottom-9  transition-all duration-300 ${
+              error ? "opacity-100  " : "opacity-0 "
+            }  w-[38%] rounded-md flex justify-between  text-sm  p-4 bg-[#323232]  text-white      tracking-wider `}>
+            <p>{statusMessage}</p>
+            <button className="text-blue-600" onClick={handleNavigation}>
+              {actionMessage}{" "}
+            </button>
+          </div>
+            <button
+                className=" bg-gradient-to-tr from-[#FF9E35] to-[#FF6A03] px-4 py-2  text-white w-full  rounded-md  mt-20 "
+                onClick={addProductToCart}
+              >
+                Add to Cart
+              </button>
+          </div>
+
+          {/* Delivery Options Section */}
+          <div className="w-1/6">
+            <Delivery productID={productID} />
+            <Services />
+          </div>
+        </div>
+        {/* Reviews Section */}
+        <div className="w-[90%] mx-auto py-8">
+          <ProductReviewSection reviews={reviews} />
+        </div>
+
+        {/* QNA Section */}
+        <div className="w-[90%] mx-auto py-8">
+          <QnaPreviewSection productID={productID} />
+        </div>
+        {/* Description Section */}
+        <div className="w-[90%] mx-auto py-8">
+          <Description 
+            Description={product?.description}
+            productImages={images}
+          />
+        </div>
+      </div>
     </div>
   );
+
+
+  <div>
+
+
+    
+  </div>
 }
 
 export default ProductDisplay;

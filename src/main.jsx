@@ -29,6 +29,7 @@ import CategoriesPage from './Pages/Categories.jsx'
 import CategoriesDisplay from './Pages/CategoriesDisplay.jsx'
 import SellerOrder from './Pages/SellerOrder.jsx'
 import RevenuePage from './Pages/Revenue.jsx'
+import SellerQnaPage from './Pages/SellerQnaPage.jsx'
 // import AddressPage from './Pages/AddressPage.jsx'
 
 
@@ -65,7 +66,7 @@ const route=createBrowserRouter([
       ]
     },
     {
-      path:"/review/:productID",
+      path:"/review/:productID/:orderID",
       element:<Review />
 
     },
@@ -131,6 +132,10 @@ const route=createBrowserRouter([
             },{
               path:'revenue',
               element:<RevenuePage />
+            },
+            {
+              path:'customerQueries',
+              element:<SellerQnaPage />
             }
           ]
 

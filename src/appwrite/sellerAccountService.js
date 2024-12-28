@@ -366,14 +366,19 @@ class Seller{
     }
 
 
-    async sendCustomerQuerieReply(querieID,reply){
+    async sendCustomerQuerieReply(querieID,reply,replySeenStatus){
+
+
+        console.log("these are the things i am getting: ",reply,replySeenStatus);
         try {
             const response=await this.databases.updateDocument(
                 env.APPWRITE_DB,
                 env.APPWRITE_PRODUCTQUERIEID,
                 querieID,
                 {
-                    reply
+                    reply,
+                    replySeenStatus
+                    
                 }
             )
            return response;

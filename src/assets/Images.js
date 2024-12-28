@@ -23,13 +23,9 @@ import backIconQA from '../assets/backIconQA.png'
 import questionIcon from '../assets/questionIcon.png'
 import answerIcon from '../assets/answerIcon.png'
 import addressIcon from '../assets/addressIcon.png'
-
-
-
-
-
-
-
+import darazBiggerlogo from '../assets/darazBiggerlogo.png'
+import mdSearch from '../assets/mdSearch.png'
+import SellerQNA from '../assets/SellerQNA.png'
 
 
 
@@ -59,7 +55,10 @@ const images={
     backIconQA,
     questionIcon,
     answerIcon,
-    addressIcon
+    addressIcon,
+    darazBiggerlogo,
+    mdSearch,
+    SellerQNA
 }
 
 export default images;

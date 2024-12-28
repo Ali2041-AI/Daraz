@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { logInUser, logOutUser } from "../store/darazSlice";
+import { logInUser, logOutUser,setUserAddresses } from "../store/darazSlice";
 import authService from "../appwrite/authService";
 
 function LogOut() {
@@ -11,6 +11,7 @@ function LogOut() {
       .then((res)=>{
         if(res){
             dispatch(logOutUser());
+            dispatch(setUserAddresses(null));
         }
       })
     } catch (error) {

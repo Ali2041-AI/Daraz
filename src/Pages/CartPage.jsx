@@ -11,6 +11,7 @@ function CartPage(){
 
     const navigate=useNavigate();
     const userData=useSelector((state)=>state.userData)?.userData;
+
     const [loading,setLoading]=useState(false);
 
     //all data including cartID etc
@@ -254,8 +255,8 @@ useEffect(()=>{
 
         <div className="bg-[#f5f5f5] min-h-screen" >
 
-         <div className="nav-area">
-            <div className="flex bg-white fixed z-10 border-b w-full p-2 items-center justify-between gap-4" >
+         <div className="nav-area ">
+            <div className="flex bg-white fixed md:hidden z-10 border-b w-full p-2 items-center justify-between gap-4" >
                 <div className="flex items-center gap-4" >
                     <img src={images.backIcon} className="w-5  font-bold" alt="" onClick={()=>navigate("/")} />
                     <p className="font-bold mt-1">My Cart</p>
@@ -263,7 +264,7 @@ useEffect(()=>{
                 <div onClick={deleteSelectedItems} className="delete-icon" style={{width: '4.9vw', height: '4.8vw', fill: 'rgb(0, 0, 0)', stroke: 'rgb(0, 0, 0)', strokeWidth: 2}}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36" width="100%" height="100%" style={{display: 'block'}}><path d="m9 11 1.544-4.632A2 2 0 0 1 12.441 5h11.117a2 2 0 0 1 1.898 1.368L27 11m0 0h2m-2 0H7m-2 0h2m24 0h-2m0 0-.905 18.1a2 2 0 0 1-1.997 1.9H9.903a2 2 0 0 1-1.998-1.9L7 11m11 4v12m5.5-12-1 12m-10-12 1 12"></path></svg></div>
             </div>
 
-            <div className="main-area  mb-14 pt-14" >
+            <div className="main-area md:mt-28  mb-14 pt-14" >
 
                 {
                     cartProductArray.length>0

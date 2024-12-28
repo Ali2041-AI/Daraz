@@ -48,17 +48,17 @@ function QnaPreviewSection({productID}){
 
     return(
         <>
-      <div className="bg-white mt-2 p-4" >
+      <div className="bg-white mt-2 p-4 md:p-0" >
         <div className="flex justify-between" >
-        <p  className="self-start text-sm opacity-65 tracking-wide mb-6"   >Questions about this product({qna.length})</p>
+        <p  className="self-start text-sm opacity-65 tracking-wide mb-6 md:text-lg "   >Questions about this product({qna.length})</p>
         <button className="self-start text-sm opacity-65 tracking-wide mb-6 text-[#ff3d00] font-bold "    onClick={()=>navigate(`/product-qna/${productID}`)} >View All</button>
         </div>
         {
             qna?.total===0
             ?
             <div >
-                <p className="self-start text-[12.8px] opacity-65 tracking-wide mx-auto text-center"  >There are no questions yet.</p>
-                <p className="self-start text-[12.8px] opacity-65 tracking-wide mx-auto text-center">ask the seller now and thier answer will show here.</p>
+                <p className="self-start text-[12.8px] opacity-65 tracking-wide mx-auto text-center md:text-lg"  >There are no questions yet.</p>
+                <p className="self-start text-[12.8px] opacity-65 tracking-wide mx-auto text-center md:text-lg">ask the seller now and thier answer will show here.</p>
                 <p className="mx-auto w-[98%] mt-6 border-t border-black border-opacity-15"></p>
 
             </div>

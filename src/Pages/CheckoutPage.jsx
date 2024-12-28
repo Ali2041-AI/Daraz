@@ -118,7 +118,7 @@ const navigateToOrders=()=>{
 
 
         <div className="bg-[#F0F1F6]  min-h-screen" >
-            <div className="nav-area">
+            <div className="nav-area  md:hidden">
                 <div className="flex bg-white z-10 fixed border-b w-full p-2 items-center justify-between gap-4" >
                     <div className="flex items-center gap-4" >
                         <img src={images.backIcon} className="w-5  font-bold" alt="" onClick={()=>navigate("/cart")} />
@@ -205,7 +205,7 @@ const navigateToOrders=()=>{
                             <p className="text-[#FE4860] text-[10px] mr-2">Rs.{savedAmount}</p>
                         </div>
                     </div>
-                    <button onClick={handleOrder}  className="bg-[#F85606] text-white font-semibold rounded-md px-2 py-1" >Place Order({selectedProducts?.length})</button>
+                    <button onClick={handleOrder}  className="bg-[#F85606] text-white font-semibold rounded-md px-2 py-1 cursor-pointer" >Place Order({selectedProducts?.length})</button>
                 </div>
 
             </div>

@@ -22,7 +22,7 @@ function SearchedProducts(){
 return(
     <>
     <Search />
-    <div className="mb-12">
+    <div className="mb-12 md:mb-44">
 
     </div>
     <ProductPreview products={filtredProducts}  />

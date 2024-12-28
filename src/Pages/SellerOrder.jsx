@@ -5,6 +5,7 @@ import sellerAccountService from "../appwrite/sellerAccountService";
 import store from "../store/store";
 import { useLocation, useNavigate } from "react-router";
 import images from "../assets/Images";
+import FooterNavigationSeller from "../components/footerNavigationSeller";
 
 function SellerOrder(){
 
@@ -70,7 +71,7 @@ function SellerOrder(){
 
      return (
       <>
-         <div className="nav-area">
+         <div className="nav-area md:hidden">
                 <div className="flex bg-white z-10 fixed border-b w-full p-2 items-center justify-between gap-4" >
                     <div className="flex items-center gap-4" >
                         <img src={images.backIcon} className="w-5  font-bold" alt="" onClick={()=>navigate("/account/storeDashboard")} />
@@ -79,7 +80,7 @@ function SellerOrder(){
                 </div>
             </div>
       
-        <div className="container mx-auto pt-14 p-6">
+        <div className="container mx-auto pt-14 p-6 md:pt-36">
           <h2 className="text-2xl font-bold mb-4">Seller's Order Section</h2>
           <div className="overflow-x-auto bg-white shadow-md rounded-lg">
             <table className="min-w-full table-auto">
@@ -116,8 +117,8 @@ function SellerOrder(){
                         {address.city}, {address.province}, {address.country}
                       </td>
                       <td className="px-4 py-2 flex flex-col">
-                        <button onClick={()=>markShipped(order?.$id,order?.sold,order?.stock,order.quantity)} className={`bg-blue-500 ${order?.orderStatus==="shipped"?"hidden":""} text-white  px-4 py-2 rounded-lg`}>Mark as Shipped</button>
-                        <button onClick={()=>markShipped(order?.$id)} className={`bg-blue-500 ${order?.orderStatus!=="shipped"?"hidden":""} text-white  px-4 py-2 rounded-lg`}>Shipped</button>
+                        <button onClick={()=>markShipped(order?.$id,order?.sold,order?.stock,order.quantity)} className={`bg-blue-500 ${order?.orderStatus==="shipped"?"hidden":""} text-white  px-4 py-2 cursor-pointer rounded-lg`}>Mark as Shipped</button>
+                        <button onClick={()=>markShipped(order?.$id)} className={`bg-blue-500 ${order?.orderStatus!=="shipped"?"hidden":""} text-white  px-4 py-2 rounded-lg cursor-pointer`}>Shipped</button>
                       </td>
                     </tr>
                   );
@@ -126,6 +127,7 @@ function SellerOrder(){
             </table>
           </div>
         </div>
+        <FooterNavigationSeller productData={productData} />
 
       </>
 

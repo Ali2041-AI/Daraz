@@ -45,9 +45,9 @@ function SingleQA({ message, customerName, createdAt, repliedAt, reply }) {
           {/* Question Section */}
           <div className="question-area">
               <div className="flex gap-4 font-light">
-                  <img src={images.questionIcon} className="w-4 h-5 pt-1" alt="" />
+                  <img src={images.questionIcon} className="w-4 h-5 md:w-6 md:h-6 pt-1" alt="" />
                   <div>
-                      <p className="tracking-wide mb-1 text-[14px]">{message}</p>
+                      <p className="tracking-wide mb-1 text-[14px] md:text-base">{message}</p>
                       <div className="time-name-area text-[11.5px] opacity-55 tracking-wide">
                           <p>{customerName} - {sendMessageDate}</p>
                       </div>
@@ -58,9 +58,9 @@ function SingleQA({ message, customerName, createdAt, repliedAt, reply }) {
           {/* Answer Section */}
           <div className="answer-area">
               <div className="flex gap-4 font-light">
-                  <img src={images.answerIcon} className="w-4 h-5 pt-1" alt="" />
+                  <img src={images.answerIcon} className="w-4 h-5 pt-1 md:w-6 md:h-6"  alt="" />
                   <div>
-                      <p className="tracking-wide mb-1 text-[14px]">{reply}</p>
+                      <p className="tracking-wide mb-1 text-[14px] md:text-base">{reply}</p>
                       <div className="time-name-area text-[11.5px] opacity-55 tracking-wide">
                           {reply
                           ?<p>(seller) - {replyTimeMessage}</p>
@@ -71,6 +71,7 @@ function SingleQA({ message, customerName, createdAt, repliedAt, reply }) {
                   </div>
               </div>
           </div>
+          
       </div>
           :""
           }

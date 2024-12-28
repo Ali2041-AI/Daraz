@@ -36,7 +36,7 @@ function AddressPage() {
       const defaultIndex = addressArray.findIndex((address) => address.default);
       setSelectedAddressIndex(defaultIndex !== -1 ? defaultIndex : 0); // Set to the default address or first address if none is default
     }
-  }, [addressArray, selectedAddressIndex]);
+  }, [addressArray, selectedAddressIndex,userID,userAddresses]);
 
   // Handle radio button change
   const handleAddressChange = async (index) => {
@@ -69,10 +69,10 @@ function AddressPage() {
       ) : (
         <div>
           {userID ? (
-            <div>
-            <div className="flex items-center p-3 gap-3 ">
+            <div className="md:mt-32" >
+            <div className="flex items-center p-3 gap-3 md:hidden ">
                <img src={images.backIcon} className="w-4 " onClick={goBackHanlder} />
-               <h2 className="text-lg font-bold">Select Your Address</h2>  
+               <h2 className="text-lg font-bold ">Select Your Address</h2>  
             </div>    
               <div className="space-y-4">
                 {addressArray?.map((address, index) => (
@@ -84,9 +84,10 @@ function AddressPage() {
                       type="radio"
                       name="address"
                       id={`address-${index}`}
+                      
                       checked={selectedAddressIndex === index}
                       onChange={() => handleAddressChange(index)}
-                      className="mt-1"
+                      className="mt-1 w-4"
                     />
                     <label htmlFor={`address-${index}`} className="flex-1">
                       <p className="font-medium">{address.completeAddress}</p>
@@ -99,9 +100,9 @@ function AddressPage() {
                 ))}
               </div>
 
-              <div className="flex mt-6">
+              <div className="flex  mt-6">
                 <button
-                  className="bg-[#F85606] text-white px-4 py-2 font-bold rounded-md mx-auto"
+                  className="bg-[#F85606] text-white px-4 py-2 md:mt-2 font-bold rounded-md mx-auto"
                   onClick={() => navigate("addressForm")}
                 >
                   Add New Address

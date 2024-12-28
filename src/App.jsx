@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData, fetchProducts } from "./store/darazSlice";
 import { Outlet } from "react-router";
 import ScrollToTop from "./components/ScrollToTop";
+import Search from "./components/Search";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ function App() {
     <>
       <ScrollToTop
       />
+      <div className="hidden md:block">
+        <Search />
+      </div>
       <Outlet />
       {/* </ScrollToTop> */}
     </>

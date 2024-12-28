@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import sellerAccountService from "../appwrite/sellerAccountService";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import DisplayProduct from "./DisplayProduct";
+import FooterNavigationSeller from "../components/footerNavigationSeller";
 
 function StoreDashboard() {
     const storeData = useSelector((state) => state.userData.storeData);
@@ -75,22 +76,7 @@ function StoreDashboard() {
                     </div>
 
                     {/* Footer Navigation */}
-                    <div className="w-full fixed z-50 bottom-0 bg-white shadow-lg py-3">
-                        <div className="w-[90%] mx-auto max-w-[600px] flex justify-between items-center text-gray-600">
-                            <FooterIcon src={images.sellerProducts} label="Products" />
-                            <FooterIcon
-                                src={images.revenue}
-                                label="Revenue"
-                                onClick={() => navigate('/account/storeDashboard/revenue', { state: { productData } })}
-                            />
-                            <FooterIcon
-                                src={images.orders}
-                                label="Orders"
-                                onClick={() => navigate('/account/storeDashboard/orders', { state: { productData } })}
-                            />
-                            <FooterIcon src={images.settings} label="Settings" onClick={() => navigate('/account')} />
-                        </div>
-                    </div>
+                   <FooterNavigationSeller productData={productData} />
                 </div>
             ) : (
                 <Outlet />

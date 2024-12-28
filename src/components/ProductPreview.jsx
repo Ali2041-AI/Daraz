@@ -11,16 +11,19 @@ function ProductPreview({products}){
 
 
     return (
-      <div className="container mx-auto mb-14 p-4">
+      <div className="container    mx-auto mb-14 p-4">
         <div
           className="
+          w-full
             grid
             grid-cols-2    // 2 columns for mobile (default)
             sm:grid-cols-3 // 3 columns for small screens (640px and up)
             md:grid-cols-4 // 4 columns for medium screens (768px and up)
             lg:grid-cols-5 // 5 columns for large screens (1024px and up)
             xl:grid-cols-6 // 6 columns for extra-large screens (1280px and up)
-            gap-4          // spacing between items
+            gap-6          // spacing between items
+
+            
           "
         >
           {products.map((product) => (

@@ -30,23 +30,23 @@ const formattedDate = `${day} ${month} ${year}`;
     return(
 
         <>
-       <div className="bg-white mt-2 p-4" >
-        <p className="self-start text-sm opacity-65 tracking-wide mb-6"  >Rating and Reviews ({reviews.length})</p>
+       <div className="bg-white mt-2 p-4 md:p-0" >
+        <p className="self-start text-sm opacity-65 tracking-wide md:font-semibold md:tracking-wider md:text-lg mb-6 md:text-black"  >Rating and Reviews ({reviews.length})</p>
 
         {reviews.length===0
-        ?<p className="self-start text-[12.8px] opacity-65 tracking-wide mx-auto text-center"  >This Product has no reviews.</p>
+        ?<p className="self-start text-[12.8px] opacity-65 tracking-wide mx-auto md:text-lg text-center"  >This Product has no reviews.</p>
         :
         <div className="reviewDiv flex  flex-col gap-2">
             <div className="nameRating flex items-center justify-between">
                <div className="flex items-center gap-2">
-                   <p className="text-[11px] tracking-wider opacity-70" >{randomReview.name}</p>
-                   <p className="text-[10px] tracking-wider opacity-70 " >⊙{formattedDate}</p>
+                   <p className="text-[11px] tracking-wider opacity-70 md:text-[17px]" >{randomReview.name}</p>
+                   <p className="text-[10px] tracking-wider opacity-70 md:text-[17px] " >⊙{formattedDate}</p>
                 </div> 
 
                 <Rating name="half-rating-read" className="mb-1" size="small" defaultValue={0} value={parseInt(randomReview.reviewStars)}  precision={0.5} readOnly />
             </div>
             <div className="reviewText">
-             <p className="text-[12px]" > {randomReview.reviewText}</p>
+             <p className="text-[12px] md:text-base" > {randomReview.reviewText}</p>
             </div>
             <div className="reviewImages flex gap-8" >
                 {Array.isArray(randomReview.reviewImages) && randomReview.reviewImages.map((imageID)=>(

@@ -82,7 +82,7 @@ function ProductQna(){
 
     return (
         <>
-         <div className="bg-gradient-to-r  z-40  fixed w-full  from-[#F85606] to-[#F87606] overflow-y-hidden p-3 text-white flex items-center gap-2">
+         <div className="bg-gradient-to-r md:hidden  z-40  fixed w-full  from-[#F85606] to-[#F87606] overflow-y-hidden p-3 text-white flex items-center gap-2">
             <img
               src={images.backIconQA}
               className="w-4 h-4"
@@ -100,7 +100,7 @@ function ProductQna(){
       </div>
 
           :
-<div>
+<div className="md:mt-20">
 
          
           {qnaData.length === 0 ? (

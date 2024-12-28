@@ -10,7 +10,7 @@ import { ClipLoader } from "react-spinners";
 
 function Review() {
     const userData = useSelector((state) => state.userData?.userData);
-    const { productID } = useParams();
+    const { productID,orderID } = useParams();
     const [productData, setProductData] = useState([]);
     const [ratingValue, setRatingValue] = useState(0);
     const [reviewText, setReviewText] = useState("");
@@ -68,6 +68,10 @@ function Review() {
          sellerAccountService.createReview({reviewText,reviewStars,name,userID,productID,reviewImages})
          .then((res)=>{
             console.log(res);
+            sellerAccountService.updateOrderStatus(orderID,"deliverd")
+            .then((res)=>[
+                navigate('/orders')
+            ])
             setLoading(false);
          })
 
@@ -75,6 +79,7 @@ function Review() {
         else{
             setLoading(false);
         }
+        // navigate('/')
       //a
         // Add logic to submit the review
     };
@@ -85,7 +90,7 @@ function Review() {
 
 
 
-        <div className="nav-area">
+        <div className="nav-area md:hidden">
                 <div className="flex bg-white z-10 fixed border-b w-full p-2 items-center justify-between gap-4" >
                     <div className="flex items-center gap-4" >
                         <img src={images.backIcon} className="w-5  font-bold" alt="" onClick={()=>navigate("/orders")} />
@@ -94,7 +99,7 @@ function Review() {
                 </div>
 
          </div>       
-            <div className=" pt-16 px-3 pb-4 ">
+            <div className=" pt-16 px-3 pb-4 md:pt-36 ">
             
                 {/* Product Display */}
 

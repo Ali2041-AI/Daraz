@@ -2,7 +2,7 @@ function Services() {
   return (
     <>
       <p className="border  border-opacity-85 "></p>
-      <div className="flex gap-9 p-4 bg-white" >
+      <div className="flex md:flex-col gap-9 md:gap-2 p-4 bg-white" >
         <p className="self-start  opacity-65 tracking-wide text-[15px]">Service</p>
         <div>
           <div>
@@ -13,7 +13,7 @@ function Services() {
             <p className="text-[9.5px] opacity-70 mb-1 " >Change of mind is not applicable.</p>
           </div>
           <div className="flex items-center gap-1" >
-            <p className="bg-black h-1 w-1 opacity-85 self-center mb-1 mr-[0.5px] " ></p>
+            <p className="bg-black h-1  w-1 opacity-85 self-center  mb-1 mr-[0.5px] " ></p>
             <p className="text-[13px]" >Warranty not available</p>
           </div>
         </div>

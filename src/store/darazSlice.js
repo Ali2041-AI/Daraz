@@ -63,6 +63,8 @@ const darazSlice = createSlice({
       state.isSeller = false;
       state.sellerData = null;
       state.storeData = null;
+      state.addressData=null;
+      state.userAddresses=null;
     },
     LogInSeller: (state, action) => {
       state.isSeller = true;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import images from '../assets/Images';
+import FooterNavigationSeller from '../components/footerNavigationSeller';
 
 
 const RevenuePage = () => {
@@ -23,7 +24,7 @@ const RevenuePage = () => {
   return (
 
     <>
-     <div className="nav-area">
+     <div className="nav-area md:hidden">
                 <div className="flex bg-white z-10 fixed border-b w-full p-2 items-center justify-between gap-4" >
                     <div className="flex items-center gap-4" >
                         <img src={images.backIcon} className="w-5  font-bold" alt="" onClick={()=>navigate("/account/storeDashboard")} />
@@ -32,7 +33,7 @@ const RevenuePage = () => {
                 </div>
             </div>
     
-    <div className="container mx-auto p-6 pt-14">
+    <div className="container mx-auto p-6 pt-14 md:pt-36">
       <h2 className="text-2xl font-bold mb-4">Revenue Page</h2>
       <div className="overflow-x-auto bg-white shadow-md rounded-lg">
         <table className="min-w-full table-auto">
@@ -64,6 +65,7 @@ const RevenuePage = () => {
         </h3>
       </div>
     </div>
+    <FooterNavigationSeller productData={productData} />
     </>
 
   );

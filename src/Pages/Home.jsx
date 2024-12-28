@@ -50,8 +50,8 @@ function Home(){
         {/* top search area fixex */}
          
          {/* Image Slider  */}
-         <div className="min-h-screen w-full pt-[65px] bg-[#F0F1F6] rounded-lg  overflow-hidden ">
-            <div className="w-[91%] mx-auto max-w-[600px] rounded-lg overflow-hidden">
+         <div className="min-h-screen mt-4 md:mt-20  w-full  pt-[65px] bg-[#F0F1F6] rounded-lg  overflow-hidden ">
+            <div className="w-[91%] mx-auto  max-w-[600px] md:max-w-[790px]  rounded-lg overflow-hidden">
                 <Customslider>
                     {imagesSlider.map((image,index)=>{
                         return <img src={image.img} alt={image.imgAlt} key={index} />
@@ -67,14 +67,18 @@ function Home(){
                 <ProductPreview product={product} />
             </div>
          ))} */}
+         {/* <div className="border-2 border-red-700 flex justify-center items-center"> */}
          <ProductPreview products={products} />
+
+
+         {/* </div> */}
 
 </div>
 
          
          {/* Footer fixed at the bottom */}
 
-         <div className="w-full bg-white py-1 fixed bottom-0 font-notoSans">
+         <div className="w-full bg-white py-1 md:hidden fixed bottom-0 font-notoSans">
             <div className="w-[81%] mx-auto max-w-[600px] flex justify-between items-center">
             <div className="flex flex-col items-center">
                 <img src={images.darazLogo} className="w-6" alt=""  />

@@ -23,16 +23,9 @@ function DisplayProduct({ product }) {
             <td className="px-6 py-3 text-gray-800">${product.discountedPrice}</td>
             <td className="px-6 py-3 text-gray-800">{product.sold?product.sold:'0'}</td>
             <td className="px-6 py-3">
-                <div className="flex gap-2">
-                    {productImages.map((imageSrc, index) => (
-                        <img
-                            key={index}
-                            src={imageSrc}
-                            alt="Product"
-                            className="w-16 h-16 object-cover border border-gray-200 rounded-md shadow-sm"
-                        />
-                    ))}
-                </div>
+
+                <img src={productImages[0]} className="min-w-0 w-20" alt="" />
+                
             </td>
         </tr>
     );
