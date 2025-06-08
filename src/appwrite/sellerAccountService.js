@@ -482,7 +482,7 @@ class Seller{
    
     getImagePreview(featuredImageID){
         try {
-            const Image=this.storage.getFilePreview(
+            const Image=this.storage.getFileView(
                 env.APPWRITE_STORAGEID,
                 featuredImageID
             )
